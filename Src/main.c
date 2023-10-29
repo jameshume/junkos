@@ -196,8 +196,8 @@ void USART2_IRQHandler()
 {
 	if (USART2->SR & USART_SR_TXE)
 	{
-		junkos_scheduler_set_task_runnable(JUNKOS_TASK_DATA);
 		__NVIC_DisableIRQ(USART2_IRQn); // Otherwise we'll continually get this until the next character write...
+		junkos_scheduler_set_task_runnable(JUNKOS_TASK_DATA);
 	}
 }
 

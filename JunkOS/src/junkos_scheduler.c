@@ -196,7 +196,7 @@ void junkos_scheduler(void)
 	    }
 	    else
 	    {
-	       // Could go to a low power mode -- TODO
+	       __asm volatile ("wfi");
 	    }
 	 }
 }

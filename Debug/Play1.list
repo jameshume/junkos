@@ -5,25 +5,25 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000194  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00000764  08000194  08000194  00010194  2**2
+  1 .text         00000768  08000194  08000194  00010194  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000000  080008f8  080008f8  00020018  2**0
+  2 .rodata       00000000  080008fc  080008fc  00020018  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .ARM.extab    00000000  080008f8  080008f8  00020018  2**0
+  3 .ARM.extab    00000000  080008fc  080008fc  00020018  2**0
                   CONTENTS
-  4 .ARM          00000000  080008f8  080008f8  00020018  2**0
+  4 .ARM          00000000  080008fc  080008fc  00020018  2**0
                   CONTENTS
-  5 .preinit_array 00000000  080008f8  080008f8  00020018  2**0
+  5 .preinit_array 00000000  080008fc  080008fc  00020018  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  080008f8  080008f8  000108f8  2**2
+  6 .init_array   00000004  080008fc  080008fc  000108fc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  080008fc  080008fc  000108fc  2**2
+  7 .fini_array   00000004  08000900  08000900  00010900  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000018  20000000  08000900  00020000  2**2
+  8 .data         00000018  20000000  08000904  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000003c  20000018  08000918  00020018  2**2
+  9 .bss          0000003c  20000018  0800091c  00020018  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  20000054  08000918  00020054  2**0
+ 10 ._user_heap_stack 00000604  20000054  0800091c  00020054  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020018  2**0
                   CONTENTS, READONLY
@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0000dd36  00000000  00000000  00021790  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00000eff  00000000  00000000  0002f4c6  2**0
+ 17 .debug_line   00000f02  00000000  00000000  0002f4c6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0004f85a  00000000  00000000  000303c5  2**0
+ 18 .debug_str    0004f85a  00000000  00000000  000303c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  0007fc1f  2**0
+ 19 .comment      00000050  00000000  00000000  0007fc22  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000370  00000000  00000000  0007fc70  2**2
+ 20 .debug_frame  00000370  00000000  00000000  0007fc74  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -62,7 +62,7 @@ Disassembly of section .text:
  80001aa:	bd10      	pop	{r4, pc}
  80001ac:	20000018 	.word	0x20000018
  80001b0:	00000000 	.word	0x00000000
- 80001b4:	080008e0 	.word	0x080008e0
+ 80001b4:	080008e4 	.word	0x080008e4
 
 080001b8 <frame_dummy>:
  80001b8:	b508      	push	{r3, lr}
@@ -74,7 +74,7 @@ Disassembly of section .text:
  80001c6:	bd08      	pop	{r3, pc}
  80001c8:	00000000 	.word	0x00000000
  80001cc:	2000001c 	.word	0x2000001c
- 80001d0:	080008e0 	.word	0x080008e0
+ 80001d0:	080008e4 	.word	0x080008e4
 
 080001d4 <junkos_scheduler_get_context>:
  *
@@ -205,7 +205,7 @@ bool junkos_scheduler_init(junkos_task_t *const tasks, const size_t num_tasks)
  8000282:	687b      	ldr	r3, [r7, #4]
  8000284:	4413      	add	r3, r2
  8000286:	4619      	mov	r1, r3
- 8000288:	f000 f8a7 	bl	80003da <junkos_put_task_on_list_in_priority_order>
+ 8000288:	f000 f8a9 	bl	80003de <junkos_put_task_on_list_in_priority_order>
  800028c:	e00d      	b.n	80002aa <junkos_scheduler_init+0xc2>
 		}
 		else
@@ -222,7 +222,7 @@ bool junkos_scheduler_init(junkos_task_t *const tasks, const size_t num_tasks)
  80002a0:	687b      	ldr	r3, [r7, #4]
  80002a2:	4413      	add	r3, r2
  80002a4:	4619      	mov	r1, r3
- 80002a6:	f000 f898 	bl	80003da <junkos_put_task_on_list_in_priority_order>
+ 80002a6:	f000 f89a 	bl	80003de <junkos_put_task_on_list_in_priority_order>
 	for(junkos_task_id_t task_index = 0; task_index < num_tasks; ++task_index)
  80002aa:	7bbb      	ldrb	r3, [r7, #14]
  80002ac:	3301      	adds	r3, #1
@@ -307,7 +307,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  80002fe:	79fa      	ldrb	r2, [r7, #7]
  8000300:	4611      	mov	r1, r2
  8000302:	4618      	mov	r0, r3
- 8000304:	f000 f833 	bl	800036e <junkos_delete_task_from_list>
+ 8000304:	f000 f835 	bl	8000372 <junkos_delete_task_from_list>
  8000308:	60f8      	str	r0, [r7, #12]
 		if (task)
  800030a:	68fb      	ldr	r3, [r7, #12]
@@ -322,7 +322,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  8000316:	3308      	adds	r3, #8
  8000318:	68f9      	ldr	r1, [r7, #12]
  800031a:	4618      	mov	r0, r3
- 800031c:	f000 f85d 	bl	80003da <junkos_put_task_on_list_in_priority_order>
+ 800031c:	f000 f85f 	bl	80003de <junkos_put_task_on_list_in_priority_order>
   __ASM volatile ("cpsie i" : : : "memory");
  8000320:	b662      	cpsie	i
 }
@@ -365,7 +365,7 @@ void junkos_scheduler(void)
  800033e:	687b      	ldr	r3, [r7, #4]
  8000340:	3308      	adds	r3, #8
  8000342:	4618      	mov	r0, r3
- 8000344:	f000 f88d 	bl	8000462 <junkos_pop_task_off_list_in_priority_order>
+ 8000344:	f000 f88f 	bl	8000466 <junkos_pop_task_off_list_in_priority_order>
  8000348:	6038      	str	r0, [r7, #0]
 			if (task)
  800034a:	683b      	ldr	r3, [r7, #0]
@@ -377,7 +377,7 @@ void junkos_scheduler(void)
  8000352:	330c      	adds	r3, #12
  8000354:	6839      	ldr	r1, [r7, #0]
  8000356:	4618      	mov	r0, r3
- 8000358:	f000 f83f 	bl	80003da <junkos_put_task_on_list_in_priority_order>
+ 8000358:	f000 f841 	bl	80003de <junkos_put_task_on_list_in_priority_order>
   __ASM volatile ("cpsie i" : : : "memory");
  800035c:	b662      	cpsie	i
 }
@@ -389,1070 +389,1076 @@ void junkos_scheduler(void)
 	    if (task)
  8000360:	683b      	ldr	r3, [r7, #0]
  8000362:	2b00      	cmp	r3, #0
- 8000364:	d0e9      	beq.n	800033a <junkos_scheduler+0xc>
+ 8000364:	d003      	beq.n	800036e <junkos_scheduler+0x40>
 	    {
 	    	task->run();
  8000366:	683b      	ldr	r3, [r7, #0]
  8000368:	685b      	ldr	r3, [r3, #4]
  800036a:	4798      	blx	r3
-	 {
  800036c:	e7e5      	b.n	800033a <junkos_scheduler+0xc>
+	    }
+	    else
+	    {
+	       __asm volatile ("wfi");
+ 800036e:	bf30      	wfi
+	 {
+ 8000370:	e7e3      	b.n	800033a <junkos_scheduler+0xc>
 
-0800036e <junkos_delete_task_from_list>:
+08000372 <junkos_delete_task_from_list>:
 
 /**********************************************************************************************************************
  * LOCAL FUNCTIONS
  *********************************************************************************************************************/
 static junkos_task_t* junkos_delete_task_from_list(junkos_task_t **head, const junkos_task_id_t task_id)
 {
- 800036e:	b480      	push	{r7}
- 8000370:	b087      	sub	sp, #28
- 8000372:	af00      	add	r7, sp, #0
- 8000374:	6078      	str	r0, [r7, #4]
- 8000376:	460b      	mov	r3, r1
- 8000378:	70fb      	strb	r3, [r7, #3]
+ 8000372:	b480      	push	{r7}
+ 8000374:	b087      	sub	sp, #28
+ 8000376:	af00      	add	r7, sp, #0
+ 8000378:	6078      	str	r0, [r7, #4]
+ 800037a:	460b      	mov	r3, r1
+ 800037c:	70fb      	strb	r3, [r7, #3]
 	junkos_task_t* task = NULL;
- 800037a:	2300      	movs	r3, #0
- 800037c:	617b      	str	r3, [r7, #20]
-	junkos_task_t* prev = NULL;
  800037e:	2300      	movs	r3, #0
- 8000380:	613b      	str	r3, [r7, #16]
+ 8000380:	617b      	str	r3, [r7, #20]
+	junkos_task_t* prev = NULL;
+ 8000382:	2300      	movs	r3, #0
+ 8000384:	613b      	str	r3, [r7, #16]
 	junkos_task_t* current = *head;
- 8000382:	687b      	ldr	r3, [r7, #4]
- 8000384:	681b      	ldr	r3, [r3, #0]
- 8000386:	60fb      	str	r3, [r7, #12]
+ 8000386:	687b      	ldr	r3, [r7, #4]
+ 8000388:	681b      	ldr	r3, [r3, #0]
+ 800038a:	60fb      	str	r3, [r7, #12]
 
 	while(current)
- 8000388:	e01d      	b.n	80003c6 <junkos_delete_task_from_list+0x58>
+ 800038c:	e01d      	b.n	80003ca <junkos_delete_task_from_list+0x58>
 	{
 		if (current->id == task_id)
- 800038a:	68fb      	ldr	r3, [r7, #12]
- 800038c:	7a1b      	ldrb	r3, [r3, #8]
- 800038e:	78fa      	ldrb	r2, [r7, #3]
- 8000390:	429a      	cmp	r2, r3
- 8000392:	d113      	bne.n	80003bc <junkos_delete_task_from_list+0x4e>
+ 800038e:	68fb      	ldr	r3, [r7, #12]
+ 8000390:	7a1b      	ldrb	r3, [r3, #8]
+ 8000392:	78fa      	ldrb	r2, [r7, #3]
+ 8000394:	429a      	cmp	r2, r3
+ 8000396:	d113      	bne.n	80003c0 <junkos_delete_task_from_list+0x4e>
 		{
 			if (current == *head)
- 8000394:	687b      	ldr	r3, [r7, #4]
- 8000396:	681b      	ldr	r3, [r3, #0]
- 8000398:	68fa      	ldr	r2, [r7, #12]
- 800039a:	429a      	cmp	r2, r3
- 800039c:	d104      	bne.n	80003a8 <junkos_delete_task_from_list+0x3a>
+ 8000398:	687b      	ldr	r3, [r7, #4]
+ 800039a:	681b      	ldr	r3, [r3, #0]
+ 800039c:	68fa      	ldr	r2, [r7, #12]
+ 800039e:	429a      	cmp	r2, r3
+ 80003a0:	d104      	bne.n	80003ac <junkos_delete_task_from_list+0x3a>
 			{
 				*head = current->next;
- 800039e:	68fb      	ldr	r3, [r7, #12]
- 80003a0:	681a      	ldr	r2, [r3, #0]
- 80003a2:	687b      	ldr	r3, [r7, #4]
- 80003a4:	601a      	str	r2, [r3, #0]
- 80003a6:	e003      	b.n	80003b0 <junkos_delete_task_from_list+0x42>
+ 80003a2:	68fb      	ldr	r3, [r7, #12]
+ 80003a4:	681a      	ldr	r2, [r3, #0]
+ 80003a6:	687b      	ldr	r3, [r7, #4]
+ 80003a8:	601a      	str	r2, [r3, #0]
+ 80003aa:	e003      	b.n	80003b4 <junkos_delete_task_from_list+0x42>
 			}
 			else
 			{
 				prev->next = current->next;
- 80003a8:	68fb      	ldr	r3, [r7, #12]
- 80003aa:	681a      	ldr	r2, [r3, #0]
- 80003ac:	693b      	ldr	r3, [r7, #16]
- 80003ae:	601a      	str	r2, [r3, #0]
+ 80003ac:	68fb      	ldr	r3, [r7, #12]
+ 80003ae:	681a      	ldr	r2, [r3, #0]
+ 80003b0:	693b      	ldr	r3, [r7, #16]
+ 80003b2:	601a      	str	r2, [r3, #0]
 			}
 			task = current;
- 80003b0:	68fb      	ldr	r3, [r7, #12]
- 80003b2:	617b      	str	r3, [r7, #20]
+ 80003b4:	68fb      	ldr	r3, [r7, #12]
+ 80003b6:	617b      	str	r3, [r7, #20]
 			task->next = NULL;
- 80003b4:	697b      	ldr	r3, [r7, #20]
- 80003b6:	2200      	movs	r2, #0
- 80003b8:	601a      	str	r2, [r3, #0]
+ 80003b8:	697b      	ldr	r3, [r7, #20]
+ 80003ba:	2200      	movs	r2, #0
+ 80003bc:	601a      	str	r2, [r3, #0]
 			break;
- 80003ba:	e007      	b.n	80003cc <junkos_delete_task_from_list+0x5e>
+ 80003be:	e007      	b.n	80003d0 <junkos_delete_task_from_list+0x5e>
 		}
 
 		prev = current;
- 80003bc:	68fb      	ldr	r3, [r7, #12]
- 80003be:	613b      	str	r3, [r7, #16]
-		current = current->next;
  80003c0:	68fb      	ldr	r3, [r7, #12]
- 80003c2:	681b      	ldr	r3, [r3, #0]
- 80003c4:	60fb      	str	r3, [r7, #12]
+ 80003c2:	613b      	str	r3, [r7, #16]
+		current = current->next;
+ 80003c4:	68fb      	ldr	r3, [r7, #12]
+ 80003c6:	681b      	ldr	r3, [r3, #0]
+ 80003c8:	60fb      	str	r3, [r7, #12]
 	while(current)
- 80003c6:	68fb      	ldr	r3, [r7, #12]
- 80003c8:	2b00      	cmp	r3, #0
- 80003ca:	d1de      	bne.n	800038a <junkos_delete_task_from_list+0x1c>
+ 80003ca:	68fb      	ldr	r3, [r7, #12]
+ 80003cc:	2b00      	cmp	r3, #0
+ 80003ce:	d1de      	bne.n	800038e <junkos_delete_task_from_list+0x1c>
 	}
 
 	return task;
- 80003cc:	697b      	ldr	r3, [r7, #20]
+ 80003d0:	697b      	ldr	r3, [r7, #20]
 }
- 80003ce:	4618      	mov	r0, r3
- 80003d0:	371c      	adds	r7, #28
- 80003d2:	46bd      	mov	sp, r7
- 80003d4:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80003d8:	4770      	bx	lr
+ 80003d2:	4618      	mov	r0, r3
+ 80003d4:	371c      	adds	r7, #28
+ 80003d6:	46bd      	mov	sp, r7
+ 80003d8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80003dc:	4770      	bx	lr
 
-080003da <junkos_put_task_on_list_in_priority_order>:
+080003de <junkos_put_task_on_list_in_priority_order>:
 
 // Precondition interrupts disabled
 static void junkos_put_task_on_list_in_priority_order(junkos_task_t **head, junkos_task_t *const task)
 {
- 80003da:	b480      	push	{r7}
- 80003dc:	b085      	sub	sp, #20
- 80003de:	af00      	add	r7, sp, #0
- 80003e0:	6078      	str	r0, [r7, #4]
- 80003e2:	6039      	str	r1, [r7, #0]
+ 80003de:	b480      	push	{r7}
+ 80003e0:	b085      	sub	sp, #20
+ 80003e2:	af00      	add	r7, sp, #0
+ 80003e4:	6078      	str	r0, [r7, #4]
+ 80003e6:	6039      	str	r1, [r7, #0]
 	if (*head)
- 80003e4:	687b      	ldr	r3, [r7, #4]
- 80003e6:	681b      	ldr	r3, [r3, #0]
- 80003e8:	2b00      	cmp	r3, #0
- 80003ea:	d031      	beq.n	8000450 <junkos_put_task_on_list_in_priority_order+0x76>
+ 80003e8:	687b      	ldr	r3, [r7, #4]
+ 80003ea:	681b      	ldr	r3, [r3, #0]
+ 80003ec:	2b00      	cmp	r3, #0
+ 80003ee:	d031      	beq.n	8000454 <junkos_put_task_on_list_in_priority_order+0x76>
 	{
 		/* Put on list in priority order behind any of the same priority so that a thread
 		 * cannot starve others of same priority. */
 		junkos_task_t *current = *head;
- 80003ec:	687b      	ldr	r3, [r7, #4]
- 80003ee:	681b      	ldr	r3, [r3, #0]
- 80003f0:	60fb      	str	r3, [r7, #12]
+ 80003f0:	687b      	ldr	r3, [r7, #4]
+ 80003f2:	681b      	ldr	r3, [r3, #0]
+ 80003f4:	60fb      	str	r3, [r7, #12]
 		junkos_task_t *prev    = NULL;
- 80003f2:	2300      	movs	r3, #0
- 80003f4:	60bb      	str	r3, [r7, #8]
+ 80003f6:	2300      	movs	r3, #0
+ 80003f8:	60bb      	str	r3, [r7, #8]
 
 		while(current)
- 80003f6:	e01e      	b.n	8000436 <junkos_put_task_on_list_in_priority_order+0x5c>
+ 80003fa:	e01e      	b.n	800043a <junkos_put_task_on_list_in_priority_order+0x5c>
 		{
 			if (current->priority > task->priority)
- 80003f8:	68fb      	ldr	r3, [r7, #12]
- 80003fa:	7a5a      	ldrb	r2, [r3, #9]
- 80003fc:	683b      	ldr	r3, [r7, #0]
- 80003fe:	7a5b      	ldrb	r3, [r3, #9]
- 8000400:	429a      	cmp	r2, r3
- 8000402:	d913      	bls.n	800042c <junkos_put_task_on_list_in_priority_order+0x52>
+ 80003fc:	68fb      	ldr	r3, [r7, #12]
+ 80003fe:	7a5a      	ldrb	r2, [r3, #9]
+ 8000400:	683b      	ldr	r3, [r7, #0]
+ 8000402:	7a5b      	ldrb	r3, [r3, #9]
+ 8000404:	429a      	cmp	r2, r3
+ 8000406:	d913      	bls.n	8000430 <junkos_put_task_on_list_in_priority_order+0x52>
 			{
 				/* Have found a less important task. Insert it before that task */
 				if (current == *head)
- 8000404:	687b      	ldr	r3, [r7, #4]
- 8000406:	681b      	ldr	r3, [r3, #0]
- 8000408:	68fa      	ldr	r2, [r7, #12]
- 800040a:	429a      	cmp	r2, r3
- 800040c:	d107      	bne.n	800041e <junkos_put_task_on_list_in_priority_order+0x44>
+ 8000408:	687b      	ldr	r3, [r7, #4]
+ 800040a:	681b      	ldr	r3, [r3, #0]
+ 800040c:	68fa      	ldr	r2, [r7, #12]
+ 800040e:	429a      	cmp	r2, r3
+ 8000410:	d107      	bne.n	8000422 <junkos_put_task_on_list_in_priority_order+0x44>
 				{
 					task->next = *head;
- 800040e:	687b      	ldr	r3, [r7, #4]
- 8000410:	681a      	ldr	r2, [r3, #0]
- 8000412:	683b      	ldr	r3, [r7, #0]
- 8000414:	601a      	str	r2, [r3, #0]
+ 8000412:	687b      	ldr	r3, [r7, #4]
+ 8000414:	681a      	ldr	r2, [r3, #0]
+ 8000416:	683b      	ldr	r3, [r7, #0]
+ 8000418:	601a      	str	r2, [r3, #0]
 					*head = task;
- 8000416:	687b      	ldr	r3, [r7, #4]
- 8000418:	683a      	ldr	r2, [r7, #0]
- 800041a:	601a      	str	r2, [r3, #0]
+ 800041a:	687b      	ldr	r3, [r7, #4]
+ 800041c:	683a      	ldr	r2, [r7, #0]
+ 800041e:	601a      	str	r2, [r3, #0]
 				else
 				{
 					prev->next = current;
 					task->next = current;
 				}
 				break;
- 800041c:	e00e      	b.n	800043c <junkos_put_task_on_list_in_priority_order+0x62>
+ 8000420:	e00e      	b.n	8000440 <junkos_put_task_on_list_in_priority_order+0x62>
 					prev->next = current;
- 800041e:	68bb      	ldr	r3, [r7, #8]
- 8000420:	68fa      	ldr	r2, [r7, #12]
- 8000422:	601a      	str	r2, [r3, #0]
+ 8000422:	68bb      	ldr	r3, [r7, #8]
+ 8000424:	68fa      	ldr	r2, [r7, #12]
+ 8000426:	601a      	str	r2, [r3, #0]
 					task->next = current;
- 8000424:	683b      	ldr	r3, [r7, #0]
- 8000426:	68fa      	ldr	r2, [r7, #12]
- 8000428:	601a      	str	r2, [r3, #0]
+ 8000428:	683b      	ldr	r3, [r7, #0]
+ 800042a:	68fa      	ldr	r2, [r7, #12]
+ 800042c:	601a      	str	r2, [r3, #0]
 				break;
- 800042a:	e007      	b.n	800043c <junkos_put_task_on_list_in_priority_order+0x62>
+ 800042e:	e007      	b.n	8000440 <junkos_put_task_on_list_in_priority_order+0x62>
 			}
 
 			prev = current;
- 800042c:	68fb      	ldr	r3, [r7, #12]
- 800042e:	60bb      	str	r3, [r7, #8]
-			current = current->next;
  8000430:	68fb      	ldr	r3, [r7, #12]
- 8000432:	681b      	ldr	r3, [r3, #0]
- 8000434:	60fb      	str	r3, [r7, #12]
+ 8000432:	60bb      	str	r3, [r7, #8]
+			current = current->next;
+ 8000434:	68fb      	ldr	r3, [r7, #12]
+ 8000436:	681b      	ldr	r3, [r3, #0]
+ 8000438:	60fb      	str	r3, [r7, #12]
 		while(current)
- 8000436:	68fb      	ldr	r3, [r7, #12]
- 8000438:	2b00      	cmp	r3, #0
- 800043a:	d1dd      	bne.n	80003f8 <junkos_put_task_on_list_in_priority_order+0x1e>
+ 800043a:	68fb      	ldr	r3, [r7, #12]
+ 800043c:	2b00      	cmp	r3, #0
+ 800043e:	d1dd      	bne.n	80003fc <junkos_put_task_on_list_in_priority_order+0x1e>
 		}
 
 		if (!current)
- 800043c:	68fb      	ldr	r3, [r7, #12]
- 800043e:	2b00      	cmp	r3, #0
- 8000440:	d109      	bne.n	8000456 <junkos_put_task_on_list_in_priority_order+0x7c>
+ 8000440:	68fb      	ldr	r3, [r7, #12]
+ 8000442:	2b00      	cmp	r3, #0
+ 8000444:	d109      	bne.n	800045a <junkos_put_task_on_list_in_priority_order+0x7c>
 		{
 			/* The while loop completed without inserting the task. Put it on the end
 			 * of the list. */
 			prev->next = task;
- 8000442:	68bb      	ldr	r3, [r7, #8]
- 8000444:	683a      	ldr	r2, [r7, #0]
- 8000446:	601a      	str	r2, [r3, #0]
+ 8000446:	68bb      	ldr	r3, [r7, #8]
+ 8000448:	683a      	ldr	r2, [r7, #0]
+ 800044a:	601a      	str	r2, [r3, #0]
 			task->next = NULL;
- 8000448:	683b      	ldr	r3, [r7, #0]
- 800044a:	2200      	movs	r2, #0
- 800044c:	601a      	str	r2, [r3, #0]
+ 800044c:	683b      	ldr	r3, [r7, #0]
+ 800044e:	2200      	movs	r2, #0
+ 8000450:	601a      	str	r2, [r3, #0]
 	}
 	else
 	{
 		*head = task;
 	}
 }
- 800044e:	e002      	b.n	8000456 <junkos_put_task_on_list_in_priority_order+0x7c>
+ 8000452:	e002      	b.n	800045a <junkos_put_task_on_list_in_priority_order+0x7c>
 		*head = task;
- 8000450:	687b      	ldr	r3, [r7, #4]
- 8000452:	683a      	ldr	r2, [r7, #0]
- 8000454:	601a      	str	r2, [r3, #0]
+ 8000454:	687b      	ldr	r3, [r7, #4]
+ 8000456:	683a      	ldr	r2, [r7, #0]
+ 8000458:	601a      	str	r2, [r3, #0]
 }
- 8000456:	bf00      	nop
- 8000458:	3714      	adds	r7, #20
- 800045a:	46bd      	mov	sp, r7
- 800045c:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000460:	4770      	bx	lr
+ 800045a:	bf00      	nop
+ 800045c:	3714      	adds	r7, #20
+ 800045e:	46bd      	mov	sp, r7
+ 8000460:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000464:	4770      	bx	lr
 
-08000462 <junkos_pop_task_off_list_in_priority_order>:
+08000466 <junkos_pop_task_off_list_in_priority_order>:
 
 // Precondition interrupts disabled
 static junkos_task_t* junkos_pop_task_off_list_in_priority_order(junkos_task_t **head)
 {
- 8000462:	b480      	push	{r7}
- 8000464:	b085      	sub	sp, #20
- 8000466:	af00      	add	r7, sp, #0
- 8000468:	6078      	str	r0, [r7, #4]
+ 8000466:	b480      	push	{r7}
+ 8000468:	b085      	sub	sp, #20
+ 800046a:	af00      	add	r7, sp, #0
+ 800046c:	6078      	str	r0, [r7, #4]
 	junkos_task_t* task = NULL;
- 800046a:	2300      	movs	r3, #0
- 800046c:	60fb      	str	r3, [r7, #12]
+ 800046e:	2300      	movs	r3, #0
+ 8000470:	60fb      	str	r3, [r7, #12]
 
 	if (*head)
- 800046e:	687b      	ldr	r3, [r7, #4]
- 8000470:	681b      	ldr	r3, [r3, #0]
- 8000472:	2b00      	cmp	r3, #0
- 8000474:	d009      	beq.n	800048a <junkos_pop_task_off_list_in_priority_order+0x28>
+ 8000472:	687b      	ldr	r3, [r7, #4]
+ 8000474:	681b      	ldr	r3, [r3, #0]
+ 8000476:	2b00      	cmp	r3, #0
+ 8000478:	d009      	beq.n	800048e <junkos_pop_task_off_list_in_priority_order+0x28>
 	{
 		task = *head;
- 8000476:	687b      	ldr	r3, [r7, #4]
- 8000478:	681b      	ldr	r3, [r3, #0]
- 800047a:	60fb      	str	r3, [r7, #12]
+ 800047a:	687b      	ldr	r3, [r7, #4]
+ 800047c:	681b      	ldr	r3, [r3, #0]
+ 800047e:	60fb      	str	r3, [r7, #12]
 		*head = task->next;
- 800047c:	68fb      	ldr	r3, [r7, #12]
- 800047e:	681a      	ldr	r2, [r3, #0]
- 8000480:	687b      	ldr	r3, [r7, #4]
- 8000482:	601a      	str	r2, [r3, #0]
+ 8000480:	68fb      	ldr	r3, [r7, #12]
+ 8000482:	681a      	ldr	r2, [r3, #0]
+ 8000484:	687b      	ldr	r3, [r7, #4]
+ 8000486:	601a      	str	r2, [r3, #0]
 		task->next = NULL;
- 8000484:	68fb      	ldr	r3, [r7, #12]
- 8000486:	2200      	movs	r2, #0
- 8000488:	601a      	str	r2, [r3, #0]
+ 8000488:	68fb      	ldr	r3, [r7, #12]
+ 800048a:	2200      	movs	r2, #0
+ 800048c:	601a      	str	r2, [r3, #0]
 	}
 
 	return task;
- 800048a:	68fb      	ldr	r3, [r7, #12]
+ 800048e:	68fb      	ldr	r3, [r7, #12]
 }
- 800048c:	4618      	mov	r0, r3
- 800048e:	3714      	adds	r7, #20
- 8000490:	46bd      	mov	sp, r7
- 8000492:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000496:	4770      	bx	lr
+ 8000490:	4618      	mov	r0, r3
+ 8000492:	3714      	adds	r7, #20
+ 8000494:	46bd      	mov	sp, r7
+ 8000496:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800049a:	4770      	bx	lr
 
-08000498 <__NVIC_EnableIRQ>:
+0800049c <__NVIC_EnableIRQ>:
   \details Enables a device specific interrupt in the NVIC interrupt controller.
   \param [in]      IRQn  Device specific interrupt number.
   \note    IRQn must not be negative.
  */
 __STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
 {
- 8000498:	b480      	push	{r7}
- 800049a:	b083      	sub	sp, #12
- 800049c:	af00      	add	r7, sp, #0
- 800049e:	4603      	mov	r3, r0
- 80004a0:	71fb      	strb	r3, [r7, #7]
+ 800049c:	b480      	push	{r7}
+ 800049e:	b083      	sub	sp, #12
+ 80004a0:	af00      	add	r7, sp, #0
+ 80004a2:	4603      	mov	r3, r0
+ 80004a4:	71fb      	strb	r3, [r7, #7]
   if ((int32_t)(IRQn) >= 0)
- 80004a2:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 80004a6:	2b00      	cmp	r3, #0
- 80004a8:	db0b      	blt.n	80004c2 <__NVIC_EnableIRQ+0x2a>
+ 80004a6:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 80004aa:	2b00      	cmp	r3, #0
+ 80004ac:	db0b      	blt.n	80004c6 <__NVIC_EnableIRQ+0x2a>
   {
     NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
- 80004aa:	79fb      	ldrb	r3, [r7, #7]
- 80004ac:	f003 021f 	and.w	r2, r3, #31
- 80004b0:	4907      	ldr	r1, [pc, #28]	; (80004d0 <__NVIC_EnableIRQ+0x38>)
- 80004b2:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 80004b6:	095b      	lsrs	r3, r3, #5
- 80004b8:	2001      	movs	r0, #1
- 80004ba:	fa00 f202 	lsl.w	r2, r0, r2
- 80004be:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
+ 80004ae:	79fb      	ldrb	r3, [r7, #7]
+ 80004b0:	f003 021f 	and.w	r2, r3, #31
+ 80004b4:	4907      	ldr	r1, [pc, #28]	; (80004d4 <__NVIC_EnableIRQ+0x38>)
+ 80004b6:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 80004ba:	095b      	lsrs	r3, r3, #5
+ 80004bc:	2001      	movs	r0, #1
+ 80004be:	fa00 f202 	lsl.w	r2, r0, r2
+ 80004c2:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
   }
 }
- 80004c2:	bf00      	nop
- 80004c4:	370c      	adds	r7, #12
- 80004c6:	46bd      	mov	sp, r7
- 80004c8:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80004cc:	4770      	bx	lr
- 80004ce:	bf00      	nop
- 80004d0:	e000e100 	.word	0xe000e100
+ 80004c6:	bf00      	nop
+ 80004c8:	370c      	adds	r7, #12
+ 80004ca:	46bd      	mov	sp, r7
+ 80004cc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80004d0:	4770      	bx	lr
+ 80004d2:	bf00      	nop
+ 80004d4:	e000e100 	.word	0xe000e100
 
-080004d4 <__NVIC_DisableIRQ>:
+080004d8 <__NVIC_DisableIRQ>:
   \details Disables a device specific interrupt in the NVIC interrupt controller.
   \param [in]      IRQn  Device specific interrupt number.
   \note    IRQn must not be negative.
  */
 __STATIC_INLINE void __NVIC_DisableIRQ(IRQn_Type IRQn)
 {
- 80004d4:	b480      	push	{r7}
- 80004d6:	b083      	sub	sp, #12
- 80004d8:	af00      	add	r7, sp, #0
- 80004da:	4603      	mov	r3, r0
- 80004dc:	71fb      	strb	r3, [r7, #7]
+ 80004d8:	b480      	push	{r7}
+ 80004da:	b083      	sub	sp, #12
+ 80004dc:	af00      	add	r7, sp, #0
+ 80004de:	4603      	mov	r3, r0
+ 80004e0:	71fb      	strb	r3, [r7, #7]
   if ((int32_t)(IRQn) >= 0)
- 80004de:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 80004e2:	2b00      	cmp	r3, #0
- 80004e4:	db12      	blt.n	800050c <__NVIC_DisableIRQ+0x38>
+ 80004e2:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 80004e6:	2b00      	cmp	r3, #0
+ 80004e8:	db12      	blt.n	8000510 <__NVIC_DisableIRQ+0x38>
   {
     NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
- 80004e6:	79fb      	ldrb	r3, [r7, #7]
- 80004e8:	f003 021f 	and.w	r2, r3, #31
- 80004ec:	490a      	ldr	r1, [pc, #40]	; (8000518 <__NVIC_DisableIRQ+0x44>)
- 80004ee:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 80004f2:	095b      	lsrs	r3, r3, #5
- 80004f4:	2001      	movs	r0, #1
- 80004f6:	fa00 f202 	lsl.w	r2, r0, r2
- 80004fa:	3320      	adds	r3, #32
- 80004fc:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
+ 80004ea:	79fb      	ldrb	r3, [r7, #7]
+ 80004ec:	f003 021f 	and.w	r2, r3, #31
+ 80004f0:	490a      	ldr	r1, [pc, #40]	; (800051c <__NVIC_DisableIRQ+0x44>)
+ 80004f2:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 80004f6:	095b      	lsrs	r3, r3, #5
+ 80004f8:	2001      	movs	r0, #1
+ 80004fa:	fa00 f202 	lsl.w	r2, r0, r2
+ 80004fe:	3320      	adds	r3, #32
+ 8000500:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
   \details Acts as a special kind of Data Memory Barrier.
            It completes when all explicit memory accesses before this instruction complete.
  */
 __STATIC_FORCEINLINE void __DSB(void)
 {
   __ASM volatile ("dsb 0xF":::"memory");
- 8000500:	f3bf 8f4f 	dsb	sy
+ 8000504:	f3bf 8f4f 	dsb	sy
 }
- 8000504:	bf00      	nop
+ 8000508:	bf00      	nop
   __ASM volatile ("isb 0xF":::"memory");
- 8000506:	f3bf 8f6f 	isb	sy
+ 800050a:	f3bf 8f6f 	isb	sy
 }
- 800050a:	bf00      	nop
+ 800050e:	bf00      	nop
     __DSB();
     __ISB();
   }
 }
- 800050c:	bf00      	nop
- 800050e:	370c      	adds	r7, #12
- 8000510:	46bd      	mov	sp, r7
- 8000512:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000516:	4770      	bx	lr
- 8000518:	e000e100 	.word	0xe000e100
+ 8000510:	bf00      	nop
+ 8000512:	370c      	adds	r7, #12
+ 8000514:	46bd      	mov	sp, r7
+ 8000516:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800051a:	4770      	bx	lr
+ 800051c:	e000e100 	.word	0xe000e100
 
-0800051c <__NVIC_SetPriority>:
+08000520 <__NVIC_SetPriority>:
   \param [in]      IRQn  Interrupt number.
   \param [in]  priority  Priority to set.
   \note    The priority cannot be set for every processor exception.
  */
 __STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 {
- 800051c:	b480      	push	{r7}
- 800051e:	b083      	sub	sp, #12
- 8000520:	af00      	add	r7, sp, #0
- 8000522:	4603      	mov	r3, r0
- 8000524:	6039      	str	r1, [r7, #0]
- 8000526:	71fb      	strb	r3, [r7, #7]
+ 8000520:	b480      	push	{r7}
+ 8000522:	b083      	sub	sp, #12
+ 8000524:	af00      	add	r7, sp, #0
+ 8000526:	4603      	mov	r3, r0
+ 8000528:	6039      	str	r1, [r7, #0]
+ 800052a:	71fb      	strb	r3, [r7, #7]
   if ((int32_t)(IRQn) >= 0)
- 8000528:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 800052c:	2b00      	cmp	r3, #0
- 800052e:	db0a      	blt.n	8000546 <__NVIC_SetPriority+0x2a>
+ 800052c:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 8000530:	2b00      	cmp	r3, #0
+ 8000532:	db0a      	blt.n	800054a <__NVIC_SetPriority+0x2a>
   {
     NVIC->IP[((uint32_t)IRQn)]               = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
- 8000530:	683b      	ldr	r3, [r7, #0]
- 8000532:	b2da      	uxtb	r2, r3
- 8000534:	490c      	ldr	r1, [pc, #48]	; (8000568 <__NVIC_SetPriority+0x4c>)
- 8000536:	f997 3007 	ldrsb.w	r3, [r7, #7]
- 800053a:	0112      	lsls	r2, r2, #4
- 800053c:	b2d2      	uxtb	r2, r2
- 800053e:	440b      	add	r3, r1
- 8000540:	f883 2300 	strb.w	r2, [r3, #768]	; 0x300
+ 8000534:	683b      	ldr	r3, [r7, #0]
+ 8000536:	b2da      	uxtb	r2, r3
+ 8000538:	490c      	ldr	r1, [pc, #48]	; (800056c <__NVIC_SetPriority+0x4c>)
+ 800053a:	f997 3007 	ldrsb.w	r3, [r7, #7]
+ 800053e:	0112      	lsls	r2, r2, #4
+ 8000540:	b2d2      	uxtb	r2, r2
+ 8000542:	440b      	add	r3, r1
+ 8000544:	f883 2300 	strb.w	r2, [r3, #768]	; 0x300
   }
   else
   {
     SCB->SHP[(((uint32_t)IRQn) & 0xFUL)-4UL] = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
   }
 }
- 8000544:	e00a      	b.n	800055c <__NVIC_SetPriority+0x40>
+ 8000548:	e00a      	b.n	8000560 <__NVIC_SetPriority+0x40>
     SCB->SHP[(((uint32_t)IRQn) & 0xFUL)-4UL] = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
- 8000546:	683b      	ldr	r3, [r7, #0]
- 8000548:	b2da      	uxtb	r2, r3
- 800054a:	4908      	ldr	r1, [pc, #32]	; (800056c <__NVIC_SetPriority+0x50>)
- 800054c:	79fb      	ldrb	r3, [r7, #7]
- 800054e:	f003 030f 	and.w	r3, r3, #15
- 8000552:	3b04      	subs	r3, #4
- 8000554:	0112      	lsls	r2, r2, #4
- 8000556:	b2d2      	uxtb	r2, r2
- 8000558:	440b      	add	r3, r1
- 800055a:	761a      	strb	r2, [r3, #24]
+ 800054a:	683b      	ldr	r3, [r7, #0]
+ 800054c:	b2da      	uxtb	r2, r3
+ 800054e:	4908      	ldr	r1, [pc, #32]	; (8000570 <__NVIC_SetPriority+0x50>)
+ 8000550:	79fb      	ldrb	r3, [r7, #7]
+ 8000552:	f003 030f 	and.w	r3, r3, #15
+ 8000556:	3b04      	subs	r3, #4
+ 8000558:	0112      	lsls	r2, r2, #4
+ 800055a:	b2d2      	uxtb	r2, r2
+ 800055c:	440b      	add	r3, r1
+ 800055e:	761a      	strb	r2, [r3, #24]
 }
- 800055c:	bf00      	nop
- 800055e:	370c      	adds	r7, #12
- 8000560:	46bd      	mov	sp, r7
- 8000562:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000566:	4770      	bx	lr
- 8000568:	e000e100 	.word	0xe000e100
- 800056c:	e000ed00 	.word	0xe000ed00
+ 8000560:	bf00      	nop
+ 8000562:	370c      	adds	r7, #12
+ 8000564:	46bd      	mov	sp, r7
+ 8000566:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800056a:	4770      	bx	lr
+ 800056c:	e000e100 	.word	0xe000e100
+ 8000570:	e000ed00 	.word	0xe000ed00
 
-08000570 <SysTick_Config>:
+08000574 <SysTick_Config>:
   \note    When the variable <b>__Vendor_SysTickConfig</b> is set to 1, then the
            function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
            must contain a vendor-specific implementation of this function.
  */
 __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
 {
- 8000570:	b580      	push	{r7, lr}
- 8000572:	b082      	sub	sp, #8
- 8000574:	af00      	add	r7, sp, #0
- 8000576:	6078      	str	r0, [r7, #4]
+ 8000574:	b580      	push	{r7, lr}
+ 8000576:	b082      	sub	sp, #8
+ 8000578:	af00      	add	r7, sp, #0
+ 800057a:	6078      	str	r0, [r7, #4]
   if ((ticks - 1UL) > SysTick_LOAD_RELOAD_Msk)
- 8000578:	687b      	ldr	r3, [r7, #4]
- 800057a:	3b01      	subs	r3, #1
- 800057c:	f1b3 7f80 	cmp.w	r3, #16777216	; 0x1000000
- 8000580:	d301      	bcc.n	8000586 <SysTick_Config+0x16>
+ 800057c:	687b      	ldr	r3, [r7, #4]
+ 800057e:	3b01      	subs	r3, #1
+ 8000580:	f1b3 7f80 	cmp.w	r3, #16777216	; 0x1000000
+ 8000584:	d301      	bcc.n	800058a <SysTick_Config+0x16>
   {
     return (1UL);                                                   /* Reload value impossible */
- 8000582:	2301      	movs	r3, #1
- 8000584:	e00f      	b.n	80005a6 <SysTick_Config+0x36>
+ 8000586:	2301      	movs	r3, #1
+ 8000588:	e00f      	b.n	80005aa <SysTick_Config+0x36>
   }
 
   SysTick->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
- 8000586:	4a0a      	ldr	r2, [pc, #40]	; (80005b0 <SysTick_Config+0x40>)
- 8000588:	687b      	ldr	r3, [r7, #4]
- 800058a:	3b01      	subs	r3, #1
- 800058c:	6053      	str	r3, [r2, #4]
+ 800058a:	4a0a      	ldr	r2, [pc, #40]	; (80005b4 <SysTick_Config+0x40>)
+ 800058c:	687b      	ldr	r3, [r7, #4]
+ 800058e:	3b01      	subs	r3, #1
+ 8000590:	6053      	str	r3, [r2, #4]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
- 800058e:	210f      	movs	r1, #15
- 8000590:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
- 8000594:	f7ff ffc2 	bl	800051c <__NVIC_SetPriority>
+ 8000592:	210f      	movs	r1, #15
+ 8000594:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
+ 8000598:	f7ff ffc2 	bl	8000520 <__NVIC_SetPriority>
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
- 8000598:	4b05      	ldr	r3, [pc, #20]	; (80005b0 <SysTick_Config+0x40>)
- 800059a:	2200      	movs	r2, #0
- 800059c:	609a      	str	r2, [r3, #8]
+ 800059c:	4b05      	ldr	r3, [pc, #20]	; (80005b4 <SysTick_Config+0x40>)
+ 800059e:	2200      	movs	r2, #0
+ 80005a0:	609a      	str	r2, [r3, #8]
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
- 800059e:	4b04      	ldr	r3, [pc, #16]	; (80005b0 <SysTick_Config+0x40>)
- 80005a0:	2207      	movs	r2, #7
- 80005a2:	601a      	str	r2, [r3, #0]
+ 80005a2:	4b04      	ldr	r3, [pc, #16]	; (80005b4 <SysTick_Config+0x40>)
+ 80005a4:	2207      	movs	r2, #7
+ 80005a6:	601a      	str	r2, [r3, #0]
                    SysTick_CTRL_TICKINT_Msk   |
                    SysTick_CTRL_ENABLE_Msk;                         /* Enable SysTick IRQ and SysTick Timer */
   return (0UL);                                                     /* Function successful */
- 80005a4:	2300      	movs	r3, #0
+ 80005a8:	2300      	movs	r3, #0
 }
- 80005a6:	4618      	mov	r0, r3
- 80005a8:	3708      	adds	r7, #8
- 80005aa:	46bd      	mov	sp, r7
- 80005ac:	bd80      	pop	{r7, pc}
- 80005ae:	bf00      	nop
- 80005b0:	e000e010 	.word	0xe000e010
+ 80005aa:	4618      	mov	r0, r3
+ 80005ac:	3708      	adds	r7, #8
+ 80005ae:	46bd      	mov	sp, r7
+ 80005b0:	bd80      	pop	{r7, pc}
+ 80005b2:	bf00      	nop
+ 80005b4:	e000e010 	.word	0xe000e010
 
-080005b4 <gpio_a_clk_ena>:
+080005b8 <gpio_a_clk_ena>:
 };
 
 #define JUNKOS_NUM_TASKS (sizeof(junkos_tasks)/sizeof(junkos_tasks[0]))
 
 void gpio_a_clk_ena(void)
 {
- 80005b4:	b480      	push	{r7}
- 80005b6:	af00      	add	r7, sp, #0
+ 80005b8:	b480      	push	{r7}
+ 80005ba:	af00      	add	r7, sp, #0
 	static bool is_enabled = false;
 
 	if (!is_enabled)
- 80005b8:	4b0a      	ldr	r3, [pc, #40]	; (80005e4 <gpio_a_clk_ena+0x30>)
- 80005ba:	781b      	ldrb	r3, [r3, #0]
- 80005bc:	f083 0301 	eor.w	r3, r3, #1
- 80005c0:	b2db      	uxtb	r3, r3
- 80005c2:	2b00      	cmp	r3, #0
- 80005c4:	d008      	beq.n	80005d8 <gpio_a_clk_ena+0x24>
+ 80005bc:	4b0a      	ldr	r3, [pc, #40]	; (80005e8 <gpio_a_clk_ena+0x30>)
+ 80005be:	781b      	ldrb	r3, [r3, #0]
+ 80005c0:	f083 0301 	eor.w	r3, r3, #1
+ 80005c4:	b2db      	uxtb	r3, r3
+ 80005c6:	2b00      	cmp	r3, #0
+ 80005c8:	d008      	beq.n	80005dc <gpio_a_clk_ena+0x24>
 	{
 		/* Enable clock to GPIO_A bank */
 		RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
- 80005c6:	4b08      	ldr	r3, [pc, #32]	; (80005e8 <gpio_a_clk_ena+0x34>)
- 80005c8:	6b1b      	ldr	r3, [r3, #48]	; 0x30
- 80005ca:	4a07      	ldr	r2, [pc, #28]	; (80005e8 <gpio_a_clk_ena+0x34>)
- 80005cc:	f043 0301 	orr.w	r3, r3, #1
- 80005d0:	6313      	str	r3, [r2, #48]	; 0x30
+ 80005ca:	4b08      	ldr	r3, [pc, #32]	; (80005ec <gpio_a_clk_ena+0x34>)
+ 80005cc:	6b1b      	ldr	r3, [r3, #48]	; 0x30
+ 80005ce:	4a07      	ldr	r2, [pc, #28]	; (80005ec <gpio_a_clk_ena+0x34>)
+ 80005d0:	f043 0301 	orr.w	r3, r3, #1
+ 80005d4:	6313      	str	r3, [r2, #48]	; 0x30
 		is_enabled = true;
- 80005d2:	4b04      	ldr	r3, [pc, #16]	; (80005e4 <gpio_a_clk_ena+0x30>)
- 80005d4:	2201      	movs	r2, #1
- 80005d6:	701a      	strb	r2, [r3, #0]
+ 80005d6:	4b04      	ldr	r3, [pc, #16]	; (80005e8 <gpio_a_clk_ena+0x30>)
+ 80005d8:	2201      	movs	r2, #1
+ 80005da:	701a      	strb	r2, [r3, #0]
 	}
 }
- 80005d8:	bf00      	nop
- 80005da:	46bd      	mov	sp, r7
- 80005dc:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80005e0:	4770      	bx	lr
- 80005e2:	bf00      	nop
- 80005e4:	20000044 	.word	0x20000044
- 80005e8:	40023800 	.word	0x40023800
+ 80005dc:	bf00      	nop
+ 80005de:	46bd      	mov	sp, r7
+ 80005e0:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80005e4:	4770      	bx	lr
+ 80005e6:	bf00      	nop
+ 80005e8:	20000044 	.word	0x20000044
+ 80005ec:	40023800 	.word	0x40023800
 
-080005ec <led_init>:
+080005f0 <led_init>:
 
 void led_init(void)
 {
- 80005ec:	b580      	push	{r7, lr}
- 80005ee:	af00      	add	r7, sp, #0
+ 80005f0:	b580      	push	{r7, lr}
+ 80005f2:	af00      	add	r7, sp, #0
 	gpio_a_clk_ena();
- 80005f0:	f7ff ffe0 	bl	80005b4 <gpio_a_clk_ena>
+ 80005f4:	f7ff ffe0 	bl	80005b8 <gpio_a_clk_ena>
 
 	/* Set PA5 to be a general purpose push-pull output type */
 	/* Make it push pull */
 	GPIOA->OTYPER &= GPIO_OTYPER_OT5;
- 80005f4:	4b09      	ldr	r3, [pc, #36]	; (800061c <led_init+0x30>)
- 80005f6:	685b      	ldr	r3, [r3, #4]
- 80005f8:	4a08      	ldr	r2, [pc, #32]	; (800061c <led_init+0x30>)
- 80005fa:	f003 0320 	and.w	r3, r3, #32
- 80005fe:	6053      	str	r3, [r2, #4]
+ 80005f8:	4b09      	ldr	r3, [pc, #36]	; (8000620 <led_init+0x30>)
+ 80005fa:	685b      	ldr	r3, [r3, #4]
+ 80005fc:	4a08      	ldr	r2, [pc, #32]	; (8000620 <led_init+0x30>)
+ 80005fe:	f003 0320 	and.w	r3, r3, #32
+ 8000602:	6053      	str	r3, [r2, #4]
 
 	/* Make it a general purpose output */
 	GPIOA->MODER &= ~GPIO_MODER_MODER5;
- 8000600:	4b06      	ldr	r3, [pc, #24]	; (800061c <led_init+0x30>)
- 8000602:	681b      	ldr	r3, [r3, #0]
- 8000604:	4a05      	ldr	r2, [pc, #20]	; (800061c <led_init+0x30>)
- 8000606:	f423 6340 	bic.w	r3, r3, #3072	; 0xc00
- 800060a:	6013      	str	r3, [r2, #0]
+ 8000604:	4b06      	ldr	r3, [pc, #24]	; (8000620 <led_init+0x30>)
+ 8000606:	681b      	ldr	r3, [r3, #0]
+ 8000608:	4a05      	ldr	r2, [pc, #20]	; (8000620 <led_init+0x30>)
+ 800060a:	f423 6340 	bic.w	r3, r3, #3072	; 0xc00
+ 800060e:	6013      	str	r3, [r2, #0]
 	GPIOA->MODER |= GPIO_MODER_MODER5_0;
- 800060c:	4b03      	ldr	r3, [pc, #12]	; (800061c <led_init+0x30>)
- 800060e:	681b      	ldr	r3, [r3, #0]
- 8000610:	4a02      	ldr	r2, [pc, #8]	; (800061c <led_init+0x30>)
- 8000612:	f443 6380 	orr.w	r3, r3, #1024	; 0x400
- 8000616:	6013      	str	r3, [r2, #0]
+ 8000610:	4b03      	ldr	r3, [pc, #12]	; (8000620 <led_init+0x30>)
+ 8000612:	681b      	ldr	r3, [r3, #0]
+ 8000614:	4a02      	ldr	r2, [pc, #8]	; (8000620 <led_init+0x30>)
+ 8000616:	f443 6380 	orr.w	r3, r3, #1024	; 0x400
+ 800061a:	6013      	str	r3, [r2, #0]
 }
- 8000618:	bf00      	nop
- 800061a:	bd80      	pop	{r7, pc}
- 800061c:	40020000 	.word	0x40020000
+ 800061c:	bf00      	nop
+ 800061e:	bd80      	pop	{r7, pc}
+ 8000620:	40020000 	.word	0x40020000
 
-08000620 <led_set>:
+08000624 <led_set>:
 
 
 void led_set(const bool is_on)
 {
- 8000620:	b480      	push	{r7}
- 8000622:	b083      	sub	sp, #12
- 8000624:	af00      	add	r7, sp, #0
- 8000626:	4603      	mov	r3, r0
- 8000628:	71fb      	strb	r3, [r7, #7]
+ 8000624:	b480      	push	{r7}
+ 8000626:	b083      	sub	sp, #12
+ 8000628:	af00      	add	r7, sp, #0
+ 800062a:	4603      	mov	r3, r0
+ 800062c:	71fb      	strb	r3, [r7, #7]
 	if (is_on)
- 800062a:	79fb      	ldrb	r3, [r7, #7]
- 800062c:	2b00      	cmp	r3, #0
- 800062e:	d006      	beq.n	800063e <led_set+0x1e>
+ 800062e:	79fb      	ldrb	r3, [r7, #7]
+ 8000630:	2b00      	cmp	r3, #0
+ 8000632:	d006      	beq.n	8000642 <led_set+0x1e>
 	{
 		GPIOA->ODR |= GPIO_ODR_OD5;
- 8000630:	4b09      	ldr	r3, [pc, #36]	; (8000658 <led_set+0x38>)
- 8000632:	695b      	ldr	r3, [r3, #20]
- 8000634:	4a08      	ldr	r2, [pc, #32]	; (8000658 <led_set+0x38>)
- 8000636:	f043 0320 	orr.w	r3, r3, #32
- 800063a:	6153      	str	r3, [r2, #20]
+ 8000634:	4b09      	ldr	r3, [pc, #36]	; (800065c <led_set+0x38>)
+ 8000636:	695b      	ldr	r3, [r3, #20]
+ 8000638:	4a08      	ldr	r2, [pc, #32]	; (800065c <led_set+0x38>)
+ 800063a:	f043 0320 	orr.w	r3, r3, #32
+ 800063e:	6153      	str	r3, [r2, #20]
 	}
 	else
 	{
 		GPIOA->ODR &= ~GPIO_ODR_OD5;
 	}
 }
- 800063c:	e005      	b.n	800064a <led_set+0x2a>
+ 8000640:	e005      	b.n	800064e <led_set+0x2a>
 		GPIOA->ODR &= ~GPIO_ODR_OD5;
- 800063e:	4b06      	ldr	r3, [pc, #24]	; (8000658 <led_set+0x38>)
- 8000640:	695b      	ldr	r3, [r3, #20]
- 8000642:	4a05      	ldr	r2, [pc, #20]	; (8000658 <led_set+0x38>)
- 8000644:	f023 0320 	bic.w	r3, r3, #32
- 8000648:	6153      	str	r3, [r2, #20]
+ 8000642:	4b06      	ldr	r3, [pc, #24]	; (800065c <led_set+0x38>)
+ 8000644:	695b      	ldr	r3, [r3, #20]
+ 8000646:	4a05      	ldr	r2, [pc, #20]	; (800065c <led_set+0x38>)
+ 8000648:	f023 0320 	bic.w	r3, r3, #32
+ 800064c:	6153      	str	r3, [r2, #20]
 }
- 800064a:	bf00      	nop
- 800064c:	370c      	adds	r7, #12
- 800064e:	46bd      	mov	sp, r7
- 8000650:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000654:	4770      	bx	lr
- 8000656:	bf00      	nop
- 8000658:	40020000 	.word	0x40020000
+ 800064e:	bf00      	nop
+ 8000650:	370c      	adds	r7, #12
+ 8000652:	46bd      	mov	sp, r7
+ 8000654:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000658:	4770      	bx	lr
+ 800065a:	bf00      	nop
+ 800065c:	40020000 	.word	0x40020000
 
-0800065c <systick_init>:
+08000660 <systick_init>:
 
 void systick_init(void)
 {
- 800065c:	b580      	push	{r7, lr}
- 800065e:	af00      	add	r7, sp, #0
+ 8000660:	b580      	push	{r7, lr}
+ 8000662:	af00      	add	r7, sp, #0
 	// value to 16,000,000 / 100 == 160,000
 	//
 	// The RELOAD value is calculated according to its use. For example, to generate a multi-shot
 	// timer with a period of N processor clock cycles, use a RELOAD value of N-1. If the SysTick
 	// interrupt is required every 100 clock pulses, set RELOAD to 99
 	SysTick_Config(16000000);
- 8000660:	4804      	ldr	r0, [pc, #16]	; (8000674 <systick_init+0x18>)
- 8000662:	f7ff ff85 	bl	8000570 <SysTick_Config>
+ 8000664:	4804      	ldr	r0, [pc, #16]	; (8000678 <systick_init+0x18>)
+ 8000666:	f7ff ff85 	bl	8000574 <SysTick_Config>
 	__NVIC_EnableIRQ(SysTick_IRQn);
- 8000666:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
- 800066a:	f7ff ff15 	bl	8000498 <__NVIC_EnableIRQ>
+ 800066a:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
+ 800066e:	f7ff ff15 	bl	800049c <__NVIC_EnableIRQ>
 }
- 800066e:	bf00      	nop
- 8000670:	bd80      	pop	{r7, pc}
  8000672:	bf00      	nop
- 8000674:	00f42400 	.word	0x00f42400
+ 8000674:	bd80      	pop	{r7, pc}
+ 8000676:	bf00      	nop
+ 8000678:	00f42400 	.word	0x00f42400
 
-08000678 <led_task>:
+0800067c <led_task>:
 
 void led_task(void)
 {
- 8000678:	b580      	push	{r7, lr}
- 800067a:	af00      	add	r7, sp, #0
+ 800067c:	b580      	push	{r7, lr}
+ 800067e:	af00      	add	r7, sp, #0
 	static struct {
 		bool led_on;
 	} context = { false };
 
 	context.led_on = !context.led_on;
- 800067c:	4b0a      	ldr	r3, [pc, #40]	; (80006a8 <led_task+0x30>)
- 800067e:	781b      	ldrb	r3, [r3, #0]
- 8000680:	2b00      	cmp	r3, #0
- 8000682:	bf14      	ite	ne
- 8000684:	2301      	movne	r3, #1
- 8000686:	2300      	moveq	r3, #0
- 8000688:	b2db      	uxtb	r3, r3
- 800068a:	f083 0301 	eor.w	r3, r3, #1
- 800068e:	b2db      	uxtb	r3, r3
- 8000690:	f003 0301 	and.w	r3, r3, #1
- 8000694:	b2da      	uxtb	r2, r3
- 8000696:	4b04      	ldr	r3, [pc, #16]	; (80006a8 <led_task+0x30>)
- 8000698:	701a      	strb	r2, [r3, #0]
+ 8000680:	4b0a      	ldr	r3, [pc, #40]	; (80006ac <led_task+0x30>)
+ 8000682:	781b      	ldrb	r3, [r3, #0]
+ 8000684:	2b00      	cmp	r3, #0
+ 8000686:	bf14      	ite	ne
+ 8000688:	2301      	movne	r3, #1
+ 800068a:	2300      	moveq	r3, #0
+ 800068c:	b2db      	uxtb	r3, r3
+ 800068e:	f083 0301 	eor.w	r3, r3, #1
+ 8000692:	b2db      	uxtb	r3, r3
+ 8000694:	f003 0301 	and.w	r3, r3, #1
+ 8000698:	b2da      	uxtb	r2, r3
+ 800069a:	4b04      	ldr	r3, [pc, #16]	; (80006ac <led_task+0x30>)
+ 800069c:	701a      	strb	r2, [r3, #0]
 	led_set(context.led_on);
- 800069a:	4b03      	ldr	r3, [pc, #12]	; (80006a8 <led_task+0x30>)
- 800069c:	781b      	ldrb	r3, [r3, #0]
- 800069e:	4618      	mov	r0, r3
- 80006a0:	f7ff ffbe 	bl	8000620 <led_set>
+ 800069e:	4b03      	ldr	r3, [pc, #12]	; (80006ac <led_task+0x30>)
+ 80006a0:	781b      	ldrb	r3, [r3, #0]
+ 80006a2:	4618      	mov	r0, r3
+ 80006a4:	f7ff ffbe 	bl	8000624 <led_set>
 }
- 80006a4:	bf00      	nop
- 80006a6:	bd80      	pop	{r7, pc}
- 80006a8:	20000048 	.word	0x20000048
+ 80006a8:	bf00      	nop
+ 80006aa:	bd80      	pop	{r7, pc}
+ 80006ac:	20000048 	.word	0x20000048
 
-080006ac <SysTick_Handler>:
+080006b0 <SysTick_Handler>:
 
 void SysTick_Handler()
 {
- 80006ac:	b580      	push	{r7, lr}
- 80006ae:	af00      	add	r7, sp, #0
+ 80006b0:	b580      	push	{r7, lr}
+ 80006b2:	af00      	add	r7, sp, #0
 	junkos_scheduler_set_task_runnable(JUNKOS_TASK_LED);
- 80006b0:	2002      	movs	r0, #2
- 80006b2:	f7ff fe16 	bl	80002e2 <junkos_scheduler_set_task_runnable>
+ 80006b4:	2002      	movs	r0, #2
+ 80006b6:	f7ff fe14 	bl	80002e2 <junkos_scheduler_set_task_runnable>
 }
- 80006b6:	bf00      	nop
- 80006b8:	bd80      	pop	{r7, pc}
+ 80006ba:	bf00      	nop
+ 80006bc:	bd80      	pop	{r7, pc}
 	...
 
-080006bc <uart_init>:
+080006c0 <uart_init>:
 #define GPIO_AFRL_AFSEL3_AF7 (GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_1 | GPIO_AFRL_AFSEL3_2)
 
 #define GPIO_MODER_ALT_FUNCTION_MODE 2
 
 void uart_init(void)
 {
- 80006bc:	b580      	push	{r7, lr}
- 80006be:	af00      	add	r7, sp, #0
+ 80006c0:	b580      	push	{r7, lr}
+ 80006c2:	af00      	add	r7, sp, #0
 	/* The GPIO_A module is required. */
 	gpio_a_clk_ena();
- 80006c0:	f7ff ff78 	bl	80005b4 <gpio_a_clk_ena>
+ 80006c4:	f7ff ff78 	bl	80005b8 <gpio_a_clk_ena>
 
 	/* Configure PA2 to be the UART2_TX pin and and PA3 to be the UART2_RX pin. */
 	GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3);
- 80006c4:	4b1d      	ldr	r3, [pc, #116]	; (800073c <uart_init+0x80>)
- 80006c6:	681b      	ldr	r3, [r3, #0]
- 80006c8:	4a1c      	ldr	r2, [pc, #112]	; (800073c <uart_init+0x80>)
- 80006ca:	f023 03f0 	bic.w	r3, r3, #240	; 0xf0
- 80006ce:	6013      	str	r3, [r2, #0]
+ 80006c8:	4b1d      	ldr	r3, [pc, #116]	; (8000740 <uart_init+0x80>)
+ 80006ca:	681b      	ldr	r3, [r3, #0]
+ 80006cc:	4a1c      	ldr	r2, [pc, #112]	; (8000740 <uart_init+0x80>)
+ 80006ce:	f023 03f0 	bic.w	r3, r3, #240	; 0xf0
+ 80006d2:	6013      	str	r3, [r2, #0]
 	GPIOA->MODER |= (GPIO_MODER_ALT_FUNCTION_MODE << GPIO_MODER_MODER2_Pos) | (GPIO_MODER_ALT_FUNCTION_MODE << GPIO_MODER_MODER3_Pos);
- 80006d0:	4b1a      	ldr	r3, [pc, #104]	; (800073c <uart_init+0x80>)
- 80006d2:	681b      	ldr	r3, [r3, #0]
- 80006d4:	4a19      	ldr	r2, [pc, #100]	; (800073c <uart_init+0x80>)
- 80006d6:	f043 03a0 	orr.w	r3, r3, #160	; 0xa0
- 80006da:	6013      	str	r3, [r2, #0]
+ 80006d4:	4b1a      	ldr	r3, [pc, #104]	; (8000740 <uart_init+0x80>)
+ 80006d6:	681b      	ldr	r3, [r3, #0]
+ 80006d8:	4a19      	ldr	r2, [pc, #100]	; (8000740 <uart_init+0x80>)
+ 80006da:	f043 03a0 	orr.w	r3, r3, #160	; 0xa0
+ 80006de:	6013      	str	r3, [r2, #0]
 	GPIOA->AFR[0] &= ~(GPIO_AFRL_AFSEL2 | GPIO_AFRL_AFSEL3);
- 80006dc:	4b17      	ldr	r3, [pc, #92]	; (800073c <uart_init+0x80>)
- 80006de:	6a1b      	ldr	r3, [r3, #32]
- 80006e0:	4a16      	ldr	r2, [pc, #88]	; (800073c <uart_init+0x80>)
- 80006e2:	f423 437f 	bic.w	r3, r3, #65280	; 0xff00
- 80006e6:	6213      	str	r3, [r2, #32]
+ 80006e0:	4b17      	ldr	r3, [pc, #92]	; (8000740 <uart_init+0x80>)
+ 80006e2:	6a1b      	ldr	r3, [r3, #32]
+ 80006e4:	4a16      	ldr	r2, [pc, #88]	; (8000740 <uart_init+0x80>)
+ 80006e6:	f423 437f 	bic.w	r3, r3, #65280	; 0xff00
+ 80006ea:	6213      	str	r3, [r2, #32]
 	GPIOA->AFR[0] |= GPIO_AFRL_AFSEL2_AF7 | GPIO_AFRL_AFSEL3_AF7;
- 80006e8:	4b14      	ldr	r3, [pc, #80]	; (800073c <uart_init+0x80>)
- 80006ea:	6a1b      	ldr	r3, [r3, #32]
- 80006ec:	4a13      	ldr	r2, [pc, #76]	; (800073c <uart_init+0x80>)
- 80006ee:	f443 43ee 	orr.w	r3, r3, #30464	; 0x7700
- 80006f2:	6213      	str	r3, [r2, #32]
+ 80006ec:	4b14      	ldr	r3, [pc, #80]	; (8000740 <uart_init+0x80>)
+ 80006ee:	6a1b      	ldr	r3, [r3, #32]
+ 80006f0:	4a13      	ldr	r2, [pc, #76]	; (8000740 <uart_init+0x80>)
+ 80006f2:	f443 43ee 	orr.w	r3, r3, #30464	; 0x7700
+ 80006f6:	6213      	str	r3, [r2, #32]
 
 	/* Enable the clock to the USART 2 module */
 	RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
- 80006f4:	4b12      	ldr	r3, [pc, #72]	; (8000740 <uart_init+0x84>)
- 80006f6:	6c1b      	ldr	r3, [r3, #64]	; 0x40
- 80006f8:	4a11      	ldr	r2, [pc, #68]	; (8000740 <uart_init+0x84>)
- 80006fa:	f443 3300 	orr.w	r3, r3, #131072	; 0x20000
- 80006fe:	6413      	str	r3, [r2, #64]	; 0x40
+ 80006f8:	4b12      	ldr	r3, [pc, #72]	; (8000744 <uart_init+0x84>)
+ 80006fa:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 80006fc:	4a11      	ldr	r2, [pc, #68]	; (8000744 <uart_init+0x84>)
+ 80006fe:	f443 3300 	orr.w	r3, r3, #131072	; 0x20000
+ 8000702:	6413      	str	r3, [r2, #64]	; 0x40
 
 	USART2->CR1 &= ~USART_CR1_M;     /* 8 data bits, 1 start and n stop bit(s). */
- 8000700:	4b10      	ldr	r3, [pc, #64]	; (8000744 <uart_init+0x88>)
- 8000702:	68db      	ldr	r3, [r3, #12]
- 8000704:	4a0f      	ldr	r2, [pc, #60]	; (8000744 <uart_init+0x88>)
- 8000706:	f423 5380 	bic.w	r3, r3, #4096	; 0x1000
- 800070a:	60d3      	str	r3, [r2, #12]
+ 8000704:	4b10      	ldr	r3, [pc, #64]	; (8000748 <uart_init+0x88>)
+ 8000706:	68db      	ldr	r3, [r3, #12]
+ 8000708:	4a0f      	ldr	r2, [pc, #60]	; (8000748 <uart_init+0x88>)
+ 800070a:	f423 5380 	bic.w	r3, r3, #4096	; 0x1000
+ 800070e:	60d3      	str	r3, [r2, #12]
 	USART2->CR2 &= ~USART_CR2_STOP;  /* 1 stop bit */
- 800070c:	4b0d      	ldr	r3, [pc, #52]	; (8000744 <uart_init+0x88>)
- 800070e:	691b      	ldr	r3, [r3, #16]
- 8000710:	4a0c      	ldr	r2, [pc, #48]	; (8000744 <uart_init+0x88>)
- 8000712:	f423 5340 	bic.w	r3, r3, #12288	; 0x3000
- 8000716:	6113      	str	r3, [r2, #16]
+ 8000710:	4b0d      	ldr	r3, [pc, #52]	; (8000748 <uart_init+0x88>)
+ 8000712:	691b      	ldr	r3, [r3, #16]
+ 8000714:	4a0c      	ldr	r2, [pc, #48]	; (8000748 <uart_init+0x88>)
+ 8000716:	f423 5340 	bic.w	r3, r3, #12288	; 0x3000
+ 800071a:	6113      	str	r3, [r2, #16]
 	USART2->CR1 &= ~USART_CR1_OVER8; /* x16 over sampling for robustness to clock deviations */
- 8000718:	4b0a      	ldr	r3, [pc, #40]	; (8000744 <uart_init+0x88>)
- 800071a:	68db      	ldr	r3, [r3, #12]
- 800071c:	4a09      	ldr	r2, [pc, #36]	; (8000744 <uart_init+0x88>)
- 800071e:	f423 4300 	bic.w	r3, r3, #32768	; 0x8000
- 8000722:	60d3      	str	r3, [r2, #12]
+ 800071c:	4b0a      	ldr	r3, [pc, #40]	; (8000748 <uart_init+0x88>)
+ 800071e:	68db      	ldr	r3, [r3, #12]
+ 8000720:	4a09      	ldr	r2, [pc, #36]	; (8000748 <uart_init+0x88>)
+ 8000722:	f423 4300 	bic.w	r3, r3, #32768	; 0x8000
+ 8000726:	60d3      	str	r3, [r2, #12]
      *  Therefore DIV_Mantissa = 104
      *  DIV_Fraction = 0.16666... 0.16666... = F / 16 => F = 2.66666,. round to 3
      *
      *  So USARTDIV = (104 << 4) | 3
 	 */
 	USART2->BRR = ((104 << USART_BRR_DIV_Mantissa_Pos) & USART_BRR_DIV_Mantissa_Msk) |
- 8000724:	4b07      	ldr	r3, [pc, #28]	; (8000744 <uart_init+0x88>)
- 8000726:	f240 6283 	movw	r2, #1667	; 0x683
- 800072a:	609a      	str	r2, [r3, #8]
+ 8000728:	4b07      	ldr	r3, [pc, #28]	; (8000748 <uart_init+0x88>)
+ 800072a:	f240 6283 	movw	r2, #1667	; 0x683
+ 800072e:	609a      	str	r2, [r3, #8]
 			      ((3 << USART_BRR_DIV_Fraction_Pos) & USART_BRR_DIV_Fraction_Msk);
 
 	USART2->CR1 |= USART_CR1_UE;     /* Enable the USART */
- 800072c:	4b05      	ldr	r3, [pc, #20]	; (8000744 <uart_init+0x88>)
- 800072e:	68db      	ldr	r3, [r3, #12]
- 8000730:	4a04      	ldr	r2, [pc, #16]	; (8000744 <uart_init+0x88>)
- 8000732:	f443 5300 	orr.w	r3, r3, #8192	; 0x2000
- 8000736:	60d3      	str	r3, [r2, #12]
+ 8000730:	4b05      	ldr	r3, [pc, #20]	; (8000748 <uart_init+0x88>)
+ 8000732:	68db      	ldr	r3, [r3, #12]
+ 8000734:	4a04      	ldr	r2, [pc, #16]	; (8000748 <uart_init+0x88>)
+ 8000736:	f443 5300 	orr.w	r3, r3, #8192	; 0x2000
+ 800073a:	60d3      	str	r3, [r2, #12]
 }
- 8000738:	bf00      	nop
- 800073a:	bd80      	pop	{r7, pc}
- 800073c:	40020000 	.word	0x40020000
- 8000740:	40023800 	.word	0x40023800
- 8000744:	40004400 	.word	0x40004400
+ 800073c:	bf00      	nop
+ 800073e:	bd80      	pop	{r7, pc}
+ 8000740:	40020000 	.word	0x40020000
+ 8000744:	40023800 	.word	0x40023800
+ 8000748:	40004400 	.word	0x40004400
 
-08000748 <USART2_IRQHandler>:
+0800074c <USART2_IRQHandler>:
 
 
 void USART2_IRQHandler()
 {
- 8000748:	b580      	push	{r7, lr}
- 800074a:	af00      	add	r7, sp, #0
+ 800074c:	b580      	push	{r7, lr}
+ 800074e:	af00      	add	r7, sp, #0
 	if (USART2->SR & USART_SR_TXE)
- 800074c:	4b06      	ldr	r3, [pc, #24]	; (8000768 <USART2_IRQHandler+0x20>)
- 800074e:	681b      	ldr	r3, [r3, #0]
- 8000750:	f003 0380 	and.w	r3, r3, #128	; 0x80
- 8000754:	2b00      	cmp	r3, #0
- 8000756:	d005      	beq.n	8000764 <USART2_IRQHandler+0x1c>
+ 8000750:	4b06      	ldr	r3, [pc, #24]	; (800076c <USART2_IRQHandler+0x20>)
+ 8000752:	681b      	ldr	r3, [r3, #0]
+ 8000754:	f003 0380 	and.w	r3, r3, #128	; 0x80
+ 8000758:	2b00      	cmp	r3, #0
+ 800075a:	d005      	beq.n	8000768 <USART2_IRQHandler+0x1c>
 	{
-		junkos_scheduler_set_task_runnable(JUNKOS_TASK_DATA);
- 8000758:	2001      	movs	r0, #1
- 800075a:	f7ff fdc2 	bl	80002e2 <junkos_scheduler_set_task_runnable>
 		__NVIC_DisableIRQ(USART2_IRQn); // Otherwise we'll continually get this until the next character write...
- 800075e:	2026      	movs	r0, #38	; 0x26
- 8000760:	f7ff feb8 	bl	80004d4 <__NVIC_DisableIRQ>
+ 800075c:	2026      	movs	r0, #38	; 0x26
+ 800075e:	f7ff febb 	bl	80004d8 <__NVIC_DisableIRQ>
+		junkos_scheduler_set_task_runnable(JUNKOS_TASK_DATA);
+ 8000762:	2001      	movs	r0, #1
+ 8000764:	f7ff fdbd 	bl	80002e2 <junkos_scheduler_set_task_runnable>
 	}
 }
- 8000764:	bf00      	nop
- 8000766:	bd80      	pop	{r7, pc}
- 8000768:	40004400 	.word	0x40004400
+ 8000768:	bf00      	nop
+ 800076a:	bd80      	pop	{r7, pc}
+ 800076c:	40004400 	.word	0x40004400
 
-0800076c <uart_send_start>:
+08000770 <uart_send_start>:
 
 
 void uart_send_start(void)
 {
- 800076c:	b480      	push	{r7}
- 800076e:	af00      	add	r7, sp, #0
+ 8000770:	b480      	push	{r7}
+ 8000772:	af00      	add	r7, sp, #0
 	USART2->CR1 |= USART_CR1_TE;
- 8000770:	4b08      	ldr	r3, [pc, #32]	; (8000794 <uart_send_start+0x28>)
- 8000772:	68db      	ldr	r3, [r3, #12]
- 8000774:	4a07      	ldr	r2, [pc, #28]	; (8000794 <uart_send_start+0x28>)
- 8000776:	f043 0308 	orr.w	r3, r3, #8
- 800077a:	60d3      	str	r3, [r2, #12]
+ 8000774:	4b08      	ldr	r3, [pc, #32]	; (8000798 <uart_send_start+0x28>)
+ 8000776:	68db      	ldr	r3, [r3, #12]
+ 8000778:	4a07      	ldr	r2, [pc, #28]	; (8000798 <uart_send_start+0x28>)
+ 800077a:	f043 0308 	orr.w	r3, r3, #8
+ 800077e:	60d3      	str	r3, [r2, #12]
 	USART2->CR1 |= USART_CR1_TXEIE;
- 800077c:	4b05      	ldr	r3, [pc, #20]	; (8000794 <uart_send_start+0x28>)
- 800077e:	68db      	ldr	r3, [r3, #12]
- 8000780:	4a04      	ldr	r2, [pc, #16]	; (8000794 <uart_send_start+0x28>)
- 8000782:	f043 0380 	orr.w	r3, r3, #128	; 0x80
- 8000786:	60d3      	str	r3, [r2, #12]
+ 8000780:	4b05      	ldr	r3, [pc, #20]	; (8000798 <uart_send_start+0x28>)
+ 8000782:	68db      	ldr	r3, [r3, #12]
+ 8000784:	4a04      	ldr	r2, [pc, #16]	; (8000798 <uart_send_start+0x28>)
+ 8000786:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 800078a:	60d3      	str	r3, [r2, #12]
 }
- 8000788:	bf00      	nop
- 800078a:	46bd      	mov	sp, r7
- 800078c:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000790:	4770      	bx	lr
- 8000792:	bf00      	nop
- 8000794:	40004400 	.word	0x40004400
+ 800078c:	bf00      	nop
+ 800078e:	46bd      	mov	sp, r7
+ 8000790:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000794:	4770      	bx	lr
+ 8000796:	bf00      	nop
+ 8000798:	40004400 	.word	0x40004400
 
-08000798 <uart_send_char>:
+0800079c <uart_send_char>:
 
 
 void uart_send_char(const uint8_t c)
 {
- 8000798:	b580      	push	{r7, lr}
- 800079a:	b084      	sub	sp, #16
- 800079c:	af00      	add	r7, sp, #0
- 800079e:	4603      	mov	r3, r0
- 80007a0:	71fb      	strb	r3, [r7, #7]
+ 800079c:	b580      	push	{r7, lr}
+ 800079e:	b084      	sub	sp, #16
+ 80007a0:	af00      	add	r7, sp, #0
+ 80007a2:	4603      	mov	r3, r0
+ 80007a4:	71fb      	strb	r3, [r7, #7]
 
 	/* TX1 == 1, so data has been transferred to the shift register, data register now empty */
 
 	/* Write to the data register - the register bits 31:4 must be kept at their reset value
 	 * so do a read/write - could be better and just read those bits once on init but being lazy */
 	uint32_t dr_val = USART2->DR;
- 80007a2:	4b0a      	ldr	r3, [pc, #40]	; (80007cc <uart_send_char+0x34>)
- 80007a4:	685b      	ldr	r3, [r3, #4]
- 80007a6:	60fb      	str	r3, [r7, #12]
+ 80007a6:	4b0a      	ldr	r3, [pc, #40]	; (80007d0 <uart_send_char+0x34>)
+ 80007a8:	685b      	ldr	r3, [r3, #4]
+ 80007aa:	60fb      	str	r3, [r7, #12]
 	dr_val &= ~0xF;
- 80007a8:	68fb      	ldr	r3, [r7, #12]
- 80007aa:	f023 030f 	bic.w	r3, r3, #15
- 80007ae:	60fb      	str	r3, [r7, #12]
+ 80007ac:	68fb      	ldr	r3, [r7, #12]
+ 80007ae:	f023 030f 	bic.w	r3, r3, #15
+ 80007b2:	60fb      	str	r3, [r7, #12]
 	dr_val |= c;
- 80007b0:	79fb      	ldrb	r3, [r7, #7]
- 80007b2:	68fa      	ldr	r2, [r7, #12]
- 80007b4:	4313      	orrs	r3, r2
- 80007b6:	60fb      	str	r3, [r7, #12]
+ 80007b4:	79fb      	ldrb	r3, [r7, #7]
+ 80007b6:	68fa      	ldr	r2, [r7, #12]
+ 80007b8:	4313      	orrs	r3, r2
+ 80007ba:	60fb      	str	r3, [r7, #12]
 	USART2->DR = dr_val;
- 80007b8:	4a04      	ldr	r2, [pc, #16]	; (80007cc <uart_send_char+0x34>)
- 80007ba:	68fb      	ldr	r3, [r7, #12]
- 80007bc:	6053      	str	r3, [r2, #4]
+ 80007bc:	4a04      	ldr	r2, [pc, #16]	; (80007d0 <uart_send_char+0x34>)
+ 80007be:	68fb      	ldr	r3, [r7, #12]
+ 80007c0:	6053      	str	r3, [r2, #4]
 	__NVIC_EnableIRQ(USART2_IRQn);
- 80007be:	2026      	movs	r0, #38	; 0x26
- 80007c0:	f7ff fe6a 	bl	8000498 <__NVIC_EnableIRQ>
+ 80007c2:	2026      	movs	r0, #38	; 0x26
+ 80007c4:	f7ff fe6a 	bl	800049c <__NVIC_EnableIRQ>
 }
- 80007c4:	bf00      	nop
- 80007c6:	3710      	adds	r7, #16
- 80007c8:	46bd      	mov	sp, r7
- 80007ca:	bd80      	pop	{r7, pc}
- 80007cc:	40004400 	.word	0x40004400
+ 80007c8:	bf00      	nop
+ 80007ca:	3710      	adds	r7, #16
+ 80007cc:	46bd      	mov	sp, r7
+ 80007ce:	bd80      	pop	{r7, pc}
+ 80007d0:	40004400 	.word	0x40004400
 
-080007d0 <send_data_task>:
+080007d4 <send_data_task>:
 	USART2->CR1 &= ~USART_CR1_TE;
 	__NVIC_DisableIRQ(USART2_IRQn);
 }
 
 void send_data_task(void)
 {
- 80007d0:	b580      	push	{r7, lr}
- 80007d2:	af00      	add	r7, sp, #0
+ 80007d4:	b580      	push	{r7, lr}
+ 80007d6:	af00      	add	r7, sp, #0
 	static struct {
 		bool initialised;
 		unsigned int idx;
 	} context = {false, 0};
 
 	if (!context.initialised)
- 80007d4:	4b10      	ldr	r3, [pc, #64]	; (8000818 <send_data_task+0x48>)
- 80007d6:	781b      	ldrb	r3, [r3, #0]
- 80007d8:	f083 0301 	eor.w	r3, r3, #1
- 80007dc:	b2db      	uxtb	r3, r3
- 80007de:	2b00      	cmp	r3, #0
- 80007e0:	d004      	beq.n	80007ec <send_data_task+0x1c>
+ 80007d8:	4b10      	ldr	r3, [pc, #64]	; (800081c <send_data_task+0x48>)
+ 80007da:	781b      	ldrb	r3, [r3, #0]
+ 80007dc:	f083 0301 	eor.w	r3, r3, #1
+ 80007e0:	b2db      	uxtb	r3, r3
+ 80007e2:	2b00      	cmp	r3, #0
+ 80007e4:	d004      	beq.n	80007f0 <send_data_task+0x1c>
 	{
 		uart_send_start();
- 80007e2:	f7ff ffc3 	bl	800076c <uart_send_start>
+ 80007e6:	f7ff ffc3 	bl	8000770 <uart_send_start>
 		context.initialised = true;
- 80007e6:	4b0c      	ldr	r3, [pc, #48]	; (8000818 <send_data_task+0x48>)
- 80007e8:	2201      	movs	r2, #1
- 80007ea:	701a      	strb	r2, [r3, #0]
+ 80007ea:	4b0c      	ldr	r3, [pc, #48]	; (800081c <send_data_task+0x48>)
+ 80007ec:	2201      	movs	r2, #1
+ 80007ee:	701a      	strb	r2, [r3, #0]
 	}
 	uart_send_char('A' + (char)context.idx);
- 80007ec:	4b0a      	ldr	r3, [pc, #40]	; (8000818 <send_data_task+0x48>)
- 80007ee:	685b      	ldr	r3, [r3, #4]
- 80007f0:	b2db      	uxtb	r3, r3
- 80007f2:	3341      	adds	r3, #65	; 0x41
+ 80007f0:	4b0a      	ldr	r3, [pc, #40]	; (800081c <send_data_task+0x48>)
+ 80007f2:	685b      	ldr	r3, [r3, #4]
  80007f4:	b2db      	uxtb	r3, r3
- 80007f6:	4618      	mov	r0, r3
- 80007f8:	f7ff ffce 	bl	8000798 <uart_send_char>
+ 80007f6:	3341      	adds	r3, #65	; 0x41
+ 80007f8:	b2db      	uxtb	r3, r3
+ 80007fa:	4618      	mov	r0, r3
+ 80007fc:	f7ff ffce 	bl	800079c <uart_send_char>
 
 	context.idx += 1;
- 80007fc:	4b06      	ldr	r3, [pc, #24]	; (8000818 <send_data_task+0x48>)
- 80007fe:	685b      	ldr	r3, [r3, #4]
- 8000800:	3301      	adds	r3, #1
- 8000802:	4a05      	ldr	r2, [pc, #20]	; (8000818 <send_data_task+0x48>)
- 8000804:	6053      	str	r3, [r2, #4]
+ 8000800:	4b06      	ldr	r3, [pc, #24]	; (800081c <send_data_task+0x48>)
+ 8000802:	685b      	ldr	r3, [r3, #4]
+ 8000804:	3301      	adds	r3, #1
+ 8000806:	4a05      	ldr	r2, [pc, #20]	; (800081c <send_data_task+0x48>)
+ 8000808:	6053      	str	r3, [r2, #4]
 	if (context.idx >= 26)
- 8000806:	4b04      	ldr	r3, [pc, #16]	; (8000818 <send_data_task+0x48>)
- 8000808:	685b      	ldr	r3, [r3, #4]
- 800080a:	2b19      	cmp	r3, #25
- 800080c:	d902      	bls.n	8000814 <send_data_task+0x44>
+ 800080a:	4b04      	ldr	r3, [pc, #16]	; (800081c <send_data_task+0x48>)
+ 800080c:	685b      	ldr	r3, [r3, #4]
+ 800080e:	2b19      	cmp	r3, #25
+ 8000810:	d902      	bls.n	8000818 <send_data_task+0x44>
 	{
 		context.idx = 0;
- 800080e:	4b02      	ldr	r3, [pc, #8]	; (8000818 <send_data_task+0x48>)
- 8000810:	2200      	movs	r2, #0
- 8000812:	605a      	str	r2, [r3, #4]
+ 8000812:	4b02      	ldr	r3, [pc, #8]	; (800081c <send_data_task+0x48>)
+ 8000814:	2200      	movs	r2, #0
+ 8000816:	605a      	str	r2, [r3, #4]
 	}
 }
- 8000814:	bf00      	nop
- 8000816:	bd80      	pop	{r7, pc}
- 8000818:	2000004c 	.word	0x2000004c
+ 8000818:	bf00      	nop
+ 800081a:	bd80      	pop	{r7, pc}
+ 800081c:	2000004c 	.word	0x2000004c
 
-0800081c <main>:
+08000820 <main>:
 
 
 
 int main(void)
 {
- 800081c:	b580      	push	{r7, lr}
- 800081e:	af00      	add	r7, sp, #0
+ 8000820:	b580      	push	{r7, lr}
+ 8000822:	af00      	add	r7, sp, #0
 	junkos_scheduler_init(junkos_tasks, JUNKOS_NUM_TASKS);
- 8000820:	2102      	movs	r1, #2
- 8000822:	4807      	ldr	r0, [pc, #28]	; (8000840 <main+0x24>)
- 8000824:	f7ff fce0 	bl	80001e8 <junkos_scheduler_init>
+ 8000824:	2102      	movs	r1, #2
+ 8000826:	4807      	ldr	r0, [pc, #28]	; (8000844 <main+0x24>)
+ 8000828:	f7ff fcde 	bl	80001e8 <junkos_scheduler_init>
 
 	led_init();
- 8000828:	f7ff fee0 	bl	80005ec <led_init>
+ 800082c:	f7ff fee0 	bl	80005f0 <led_init>
 	led_set(false);
- 800082c:	2000      	movs	r0, #0
- 800082e:	f7ff fef7 	bl	8000620 <led_set>
+ 8000830:	2000      	movs	r0, #0
+ 8000832:	f7ff fef7 	bl	8000624 <led_set>
 	uart_init();
- 8000832:	f7ff ff43 	bl	80006bc <uart_init>
+ 8000836:	f7ff ff43 	bl	80006c0 <uart_init>
 	systick_init();
- 8000836:	f7ff ff11 	bl	800065c <systick_init>
+ 800083a:	f7ff ff11 	bl	8000660 <systick_init>
 
 	junkos_scheduler();
- 800083a:	f7ff fd78 	bl	800032e <junkos_scheduler>
- 800083e:	bf00      	nop
- 8000840:	20000000 	.word	0x20000000
+ 800083e:	f7ff fd76 	bl	800032e <junkos_scheduler>
+ 8000842:	bf00      	nop
+ 8000844:	20000000 	.word	0x20000000
 
-08000844 <Reset_Handler>:
+08000848 <Reset_Handler>:
 
   .section .text.Reset_Handler
   .weak Reset_Handler
   .type Reset_Handler, %function
 Reset_Handler:
   ldr   r0, =_estack
- 8000844:	480d      	ldr	r0, [pc, #52]	; (800087c <LoopForever+0x2>)
+ 8000848:	480d      	ldr	r0, [pc, #52]	; (8000880 <LoopForever+0x2>)
   mov   sp, r0          /* set stack pointer */
- 8000846:	4685      	mov	sp, r0
+ 800084a:	4685      	mov	sp, r0
 /* Call the clock system initialization function.*/
   bl  SystemInit
- 8000848:	f3af 8000 	nop.w
+ 800084c:	f3af 8000 	nop.w
 
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
- 800084c:	480c      	ldr	r0, [pc, #48]	; (8000880 <LoopForever+0x6>)
+ 8000850:	480c      	ldr	r0, [pc, #48]	; (8000884 <LoopForever+0x6>)
   ldr r1, =_edata
- 800084e:	490d      	ldr	r1, [pc, #52]	; (8000884 <LoopForever+0xa>)
+ 8000852:	490d      	ldr	r1, [pc, #52]	; (8000888 <LoopForever+0xa>)
   ldr r2, =_sidata
- 8000850:	4a0d      	ldr	r2, [pc, #52]	; (8000888 <LoopForever+0xe>)
+ 8000854:	4a0d      	ldr	r2, [pc, #52]	; (800088c <LoopForever+0xe>)
   movs r3, #0
- 8000852:	2300      	movs	r3, #0
+ 8000856:	2300      	movs	r3, #0
   b LoopCopyDataInit
- 8000854:	e002      	b.n	800085c <LoopCopyDataInit>
+ 8000858:	e002      	b.n	8000860 <LoopCopyDataInit>
 
-08000856 <CopyDataInit>:
+0800085a <CopyDataInit>:
 
 CopyDataInit:
   ldr r4, [r2, r3]
- 8000856:	58d4      	ldr	r4, [r2, r3]
+ 800085a:	58d4      	ldr	r4, [r2, r3]
   str r4, [r0, r3]
- 8000858:	50c4      	str	r4, [r0, r3]
+ 800085c:	50c4      	str	r4, [r0, r3]
   adds r3, r3, #4
- 800085a:	3304      	adds	r3, #4
+ 800085e:	3304      	adds	r3, #4
 
-0800085c <LoopCopyDataInit>:
+08000860 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   adds r4, r0, r3
- 800085c:	18c4      	adds	r4, r0, r3
+ 8000860:	18c4      	adds	r4, r0, r3
   cmp r4, r1
- 800085e:	428c      	cmp	r4, r1
+ 8000862:	428c      	cmp	r4, r1
   bcc CopyDataInit
- 8000860:	d3f9      	bcc.n	8000856 <CopyDataInit>
+ 8000864:	d3f9      	bcc.n	800085a <CopyDataInit>
 
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
- 8000862:	4a0a      	ldr	r2, [pc, #40]	; (800088c <LoopForever+0x12>)
+ 8000866:	4a0a      	ldr	r2, [pc, #40]	; (8000890 <LoopForever+0x12>)
   ldr r4, =_ebss
- 8000864:	4c0a      	ldr	r4, [pc, #40]	; (8000890 <LoopForever+0x16>)
+ 8000868:	4c0a      	ldr	r4, [pc, #40]	; (8000894 <LoopForever+0x16>)
   movs r3, #0
- 8000866:	2300      	movs	r3, #0
+ 800086a:	2300      	movs	r3, #0
   b LoopFillZerobss
- 8000868:	e001      	b.n	800086e <LoopFillZerobss>
+ 800086c:	e001      	b.n	8000872 <LoopFillZerobss>
 
-0800086a <FillZerobss>:
+0800086e <FillZerobss>:
 
 FillZerobss:
   str  r3, [r2]
- 800086a:	6013      	str	r3, [r2, #0]
+ 800086e:	6013      	str	r3, [r2, #0]
   adds r2, r2, #4
- 800086c:	3204      	adds	r2, #4
+ 8000870:	3204      	adds	r2, #4
 
-0800086e <LoopFillZerobss>:
+08000872 <LoopFillZerobss>:
 
 LoopFillZerobss:
   cmp r2, r4
- 800086e:	42a2      	cmp	r2, r4
+ 8000872:	42a2      	cmp	r2, r4
   bcc FillZerobss
- 8000870:	d3fb      	bcc.n	800086a <FillZerobss>
+ 8000874:	d3fb      	bcc.n	800086e <FillZerobss>
 
 /* Call static constructors */
   bl __libc_init_array
- 8000872:	f000 f811 	bl	8000898 <__libc_init_array>
+ 8000876:	f000 f811 	bl	800089c <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 8000876:	f7ff ffd1 	bl	800081c <main>
+ 800087a:	f7ff ffd1 	bl	8000820 <main>
 
-0800087a <LoopForever>:
+0800087e <LoopForever>:
 
 LoopForever:
   b LoopForever
- 800087a:	e7fe      	b.n	800087a <LoopForever>
+ 800087e:	e7fe      	b.n	800087e <LoopForever>
   ldr   r0, =_estack
- 800087c:	20018000 	.word	0x20018000
+ 8000880:	20018000 	.word	0x20018000
   ldr r0, =_sdata
- 8000880:	20000000 	.word	0x20000000
+ 8000884:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 8000884:	20000018 	.word	0x20000018
+ 8000888:	20000018 	.word	0x20000018
   ldr r2, =_sidata
- 8000888:	08000900 	.word	0x08000900
+ 800088c:	08000904 	.word	0x08000904
   ldr r2, =_sbss
- 800088c:	20000018 	.word	0x20000018
+ 8000890:	20000018 	.word	0x20000018
   ldr r4, =_ebss
- 8000890:	20000054 	.word	0x20000054
+ 8000894:	20000054 	.word	0x20000054
 
-08000894 <ADC_IRQHandler>:
+08000898 <ADC_IRQHandler>:
  * @retval : None
 */
   .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
   b Infinite_Loop
- 8000894:	e7fe      	b.n	8000894 <ADC_IRQHandler>
+ 8000898:	e7fe      	b.n	8000898 <ADC_IRQHandler>
 	...
 
-08000898 <__libc_init_array>:
- 8000898:	b570      	push	{r4, r5, r6, lr}
- 800089a:	4d0d      	ldr	r5, [pc, #52]	; (80008d0 <__libc_init_array+0x38>)
- 800089c:	4c0d      	ldr	r4, [pc, #52]	; (80008d4 <__libc_init_array+0x3c>)
- 800089e:	1b64      	subs	r4, r4, r5
- 80008a0:	10a4      	asrs	r4, r4, #2
- 80008a2:	2600      	movs	r6, #0
- 80008a4:	42a6      	cmp	r6, r4
- 80008a6:	d109      	bne.n	80008bc <__libc_init_array+0x24>
- 80008a8:	4d0b      	ldr	r5, [pc, #44]	; (80008d8 <__libc_init_array+0x40>)
- 80008aa:	4c0c      	ldr	r4, [pc, #48]	; (80008dc <__libc_init_array+0x44>)
- 80008ac:	f000 f818 	bl	80008e0 <_init>
- 80008b0:	1b64      	subs	r4, r4, r5
- 80008b2:	10a4      	asrs	r4, r4, #2
- 80008b4:	2600      	movs	r6, #0
- 80008b6:	42a6      	cmp	r6, r4
- 80008b8:	d105      	bne.n	80008c6 <__libc_init_array+0x2e>
- 80008ba:	bd70      	pop	{r4, r5, r6, pc}
- 80008bc:	f855 3b04 	ldr.w	r3, [r5], #4
- 80008c0:	4798      	blx	r3
- 80008c2:	3601      	adds	r6, #1
- 80008c4:	e7ee      	b.n	80008a4 <__libc_init_array+0xc>
- 80008c6:	f855 3b04 	ldr.w	r3, [r5], #4
- 80008ca:	4798      	blx	r3
- 80008cc:	3601      	adds	r6, #1
- 80008ce:	e7f2      	b.n	80008b6 <__libc_init_array+0x1e>
- 80008d0:	080008f8 	.word	0x080008f8
- 80008d4:	080008f8 	.word	0x080008f8
- 80008d8:	080008f8 	.word	0x080008f8
+0800089c <__libc_init_array>:
+ 800089c:	b570      	push	{r4, r5, r6, lr}
+ 800089e:	4d0d      	ldr	r5, [pc, #52]	; (80008d4 <__libc_init_array+0x38>)
+ 80008a0:	4c0d      	ldr	r4, [pc, #52]	; (80008d8 <__libc_init_array+0x3c>)
+ 80008a2:	1b64      	subs	r4, r4, r5
+ 80008a4:	10a4      	asrs	r4, r4, #2
+ 80008a6:	2600      	movs	r6, #0
+ 80008a8:	42a6      	cmp	r6, r4
+ 80008aa:	d109      	bne.n	80008c0 <__libc_init_array+0x24>
+ 80008ac:	4d0b      	ldr	r5, [pc, #44]	; (80008dc <__libc_init_array+0x40>)
+ 80008ae:	4c0c      	ldr	r4, [pc, #48]	; (80008e0 <__libc_init_array+0x44>)
+ 80008b0:	f000 f818 	bl	80008e4 <_init>
+ 80008b4:	1b64      	subs	r4, r4, r5
+ 80008b6:	10a4      	asrs	r4, r4, #2
+ 80008b8:	2600      	movs	r6, #0
+ 80008ba:	42a6      	cmp	r6, r4
+ 80008bc:	d105      	bne.n	80008ca <__libc_init_array+0x2e>
+ 80008be:	bd70      	pop	{r4, r5, r6, pc}
+ 80008c0:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80008c4:	4798      	blx	r3
+ 80008c6:	3601      	adds	r6, #1
+ 80008c8:	e7ee      	b.n	80008a8 <__libc_init_array+0xc>
+ 80008ca:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80008ce:	4798      	blx	r3
+ 80008d0:	3601      	adds	r6, #1
+ 80008d2:	e7f2      	b.n	80008ba <__libc_init_array+0x1e>
+ 80008d4:	080008fc 	.word	0x080008fc
+ 80008d8:	080008fc 	.word	0x080008fc
  80008dc:	080008fc 	.word	0x080008fc
+ 80008e0:	08000900 	.word	0x08000900
 
-080008e0 <_init>:
- 80008e0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80008e2:	bf00      	nop
- 80008e4:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 80008e6:	bc08      	pop	{r3}
- 80008e8:	469e      	mov	lr, r3
- 80008ea:	4770      	bx	lr
+080008e4 <_init>:
+ 80008e4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80008e6:	bf00      	nop
+ 80008e8:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80008ea:	bc08      	pop	{r3}
+ 80008ec:	469e      	mov	lr, r3
+ 80008ee:	4770      	bx	lr
 
-080008ec <_fini>:
- 80008ec:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 80008ee:	bf00      	nop
- 80008f0:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 80008f2:	bc08      	pop	{r3}
- 80008f4:	469e      	mov	lr, r3
- 80008f6:	4770      	bx	lr
+080008f0 <_fini>:
+ 80008f0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80008f2:	bf00      	nop
+ 80008f4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80008f6:	bc08      	pop	{r3}
+ 80008f8:	469e      	mov	lr, r3
+ 80008fa:	4770      	bx	lr
