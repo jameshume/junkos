@@ -13,3 +13,7 @@ build:
 .PHONY: clean
 clean:
 	@docker container run --rm -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos clean
+
+.PHONY: flash
+flash:
+	@docker container run --privileged --rm -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos flash	

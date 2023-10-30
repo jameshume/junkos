@@ -1,4 +1,8 @@
-CC:=arm-none-eabi-gcc 
+# Junk makefile
+SHELL:=/bin/bash
+
+CC:=arm-none-eabi-gcc
+OBJCOPY:=arm-none-eabi-objcopy
 
 SOURCES:=                           \
 	JunkOS/src/junkos_scheduler.c   \
@@ -86,7 +90,13 @@ all: $(OBJECTS)
 		-mfpu=fpv4-sp-d16              \
 		-mfloat-abi=hard               \
 		-mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	@echo "Creating JunkOS.bin"
+	@$(OBJCOPY) -O binary "built/JunkOS.elf" "built/JunkOS.bin"
 
 .PHONY: clean
 clean:
 	@rm -fr built
+
+.PHONY: flash
+flash: all
+	openocd -f interface/stlink.cfg -f board/st_nucleo_f4.cfg -c "program built/JunkOS.elf verify reset exit"

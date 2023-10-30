@@ -251,10 +251,10 @@ void send_data_task(void)
 		uart_send_start();
 		context.initialised = true;
 	}
-	uart_send_char('A' + (char)context.idx);
+	uart_send_char('1' + (char)context.idx);
 
 	context.idx += 1;
-	if (context.idx >= 26)
+	if (context.idx >= 9)
 	{
 		context.idx = 0;
 	}
