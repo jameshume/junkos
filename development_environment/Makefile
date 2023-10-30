@@ -4,4 +4,12 @@ container:
 
 .PHONY: shell
 shell:
-	echo docker container run --privileged --rm -it -v "$(git rev-parse --show-toplevel)":/junkos junkos-builder:latest bash
+	@docker container run --rm -it -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest bash
+
+.PHONY: build
+build:
+	@docker container run --rm -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos all
+
+.PHONY: clean
+clean:
+	@docker container run --rm -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos clean

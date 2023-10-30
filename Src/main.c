@@ -219,7 +219,7 @@ void uart_send_char(const uint8_t c)
 	/* Write to the data register - the register bits 31:4 must be kept at their reset value
 	 * so do a read/write - could be better and just read those bits once on init but being lazy */
 	uint32_t dr_val = USART2->DR;
-	dr_val &= ~0xF;
+	dr_val &= ~(uint32_t)0xF;
 	dr_val |= c;
 	USART2->DR = dr_val;
 	__NVIC_EnableIRQ(USART2_IRQn);
