@@ -33,7 +33,7 @@ $(TEMP_DIR)/base:
 -include $(TEMP_DIR)/base
 
 .PHONY: all
-all: clang ceedling arm-gcc stlink-tools open-ocd
+all: clang ceedling arm-gcc open-ocd
 
 .PHONY: clang
 clang:
@@ -70,11 +70,6 @@ arm-gcc:
 	apt-get install -y --no-install-recommends libncursesw5 software-properties-common
 	add-apt-repository -y ppa:deadsnakes/ppa
 	apt install -y python3.8
-
-.PHONY: stlink-tools
-stlink-tools:
-	wget  -O "$(TEMP_DIR)/stlink_1.7.0-1_amd64.deb" https://github.com/stlink-org/stlink/releases/download/v1.7.0/stlink_1.7.0-1_amd64.deb
-	dpkg -i "$(TEMP_DIR)/stlink_1.7.0-1_amd64.deb"
 
 .PHONY: open-ocd
 open-ocd:
