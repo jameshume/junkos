@@ -17,3 +17,11 @@ clean:
 .PHONY: flash
 flash:
 	@docker container run --privileged --rm -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos flash	
+
+.PHONY: debug
+debug:
+	@docker container run --privileged --rm -it -v "$(shell git rev-parse --show-toplevel)":/junkos junkos-builder:latest make -C /junkos debug
+
+.PHONY: minicom
+minicom:
+	minicom -D /dev/ttyACM0 -b 9600

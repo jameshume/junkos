@@ -100,3 +100,7 @@ clean:
 .PHONY: flash
 flash: all
 	openocd -f interface/stlink.cfg -f board/st_nucleo_f4.cfg -c "program built/JunkOS.elf verify reset exit"
+
+.PHONY: debug
+debug:
+	arm-none-eabi-gdb built/JunkOS.elf --eval-command "target extended-remote | openocd -f openocd.cfg -c \"gdb_port pipe; log_output openocd.log\""
