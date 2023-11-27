@@ -74,4 +74,4 @@ arm-gcc:
 .PHONY: open-ocd
 open-ocd:
 	git clone https://git.code.sf.net/p/openocd/code "$(TEMP_DIR)/openocd-code"
-	cd "$(TEMP_DIR)/openocd-code" && ./bootstrap && ./configure --enable-stlink && make -j 4 && make install
+	cd "$(TEMP_DIR)/openocd-code" && ./bootstrap && ./configure --enable-stlink --enable-jlink && make -j 4 && make install
