@@ -73,5 +73,6 @@ arm-gcc:
 
 .PHONY: open-ocd
 open-ocd:
+	sudo apt-get install -y libjaylink-dev
 	git clone https://git.code.sf.net/p/openocd/code "$(TEMP_DIR)/openocd-code"
 	cd "$(TEMP_DIR)/openocd-code" && ./bootstrap && ./configure --enable-stlink --enable-jlink && make -j 4 && make install
